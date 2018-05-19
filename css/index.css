@@ -1,0 +1,114 @@
+* {
+  font-family: sans-serif;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background: rgb(166, 166, 166);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo {
+  display: inline-block;
+  margin: 10px auto;
+  border: solid 3px rgb(140, 140, 140);
+  padding: 20px;
+  text-align: center;
+  align-self: center;
+}
+
+.nav {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  margin: 0 10px;
+  padding: 10px 0;
+}
+
+.nav__wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  position: relative;
+}
+
+.nav__main {}
+
+.nav__main:hover, .nav__public:hover, .nav__myasks:hover {
+  background: rgb(113, 113, 113);
+}
+
+.nav__sub {
+  display: none;
+  flex-direction: column;
+  width: 100%;
+  position: absolute;
+  top: 100%;
+}
+
+.nav__myasks, .nav__public, .nav__main {
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  font-size: 1.2em;
+  line-height: 2em;
+  width: 100%;
+  text-align: center;
+  background: rgb(93, 93, 93);
+}
+
+.nav__wrapper:hover .nav__sub {
+  display: flex;
+}
+
+/* KONIEC NAV */
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.box {
+  width: 60%;
+  margin: 50px;
+  display: flex;
+}
+
+.box__textside {
+  margin-right: 10px;
+}
+
+.box__info {
+  color: rgb(135, 135, 134);
+}
+
+.box__date::after, .box__author::after {
+  content: ' | ';
+}
+
+.box__header {
+  margin: 7px;
+}
+
+.box__text {
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+
+.box__content {
+  text-align: justify;
+}
