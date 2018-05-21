@@ -20,7 +20,7 @@ header {
   align-items: center;
 }
 
-.logo {
+.logo__header {
   display: inline-block;
   margin: 10px auto;
   border: solid 3px rgb(140, 140, 140);
@@ -39,6 +39,7 @@ header {
 
 .nav {
   display: flex;
+  flex-direction: row;
   width: 100%;
   justify-content: space-around;
   margin: 0 10px;
@@ -52,8 +53,6 @@ header {
   align-items: center;
   position: relative;
 }
-
-.nav__main {}
 
 .nav__main:hover, .nav__public:hover, .nav__myasks:hover, .nav__ask:hover {
   background: rgb(113, 113, 113);

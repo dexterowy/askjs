@@ -13,11 +13,11 @@ body {
   width: 100%;
 }
 
-.register {
+header {
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
 }
 
 .logo__header {
@@ -36,24 +36,32 @@ body {
   color: rgb(0, 0, 0);
   text-decoration: none;
 }
-
-.register__header {
-  text-align: center;
-  margin: 10px;
-}
-
-.register__form {
+.profile__panel {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
+  margin-top: 50px;
+  border: 1px solid rgb(45, 45, 45);
+  border-radius: 5px;
+}
+.profile__img {
+  max-height: 200px;
+  margin-right: 40px;
+  border-radius: 5px;
+}
+.profile__info {
+  padding: 10px;
+}
+.profile__name, .profile__surname, .profile__email, .profile__type {
+  font-weight: bold;
+  margin: 0;
 }
 
-.register__input {
-  margin: 5px;
-  text-indent: 5px;
+.namedb, .surnamedb, .emaildb {
+  font-weight: normal;
 }
-
-.register__btn {
-  margin: 5px;
+.profile__buttons {
+  margin: 10px 0;
+}
+.stats__header {
+  text-align: center;
 }
