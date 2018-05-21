@@ -115,6 +115,7 @@ main {
   display: flex;
   color: rgb(0, 0, 0);
   text-decoration: none;
+
 }
 .box__wrapper:hover{
   color: rgb(0, 0, 0);
@@ -126,6 +127,7 @@ main {
 
 .box__info {
   color: rgb(135, 135, 134);
+  font-size: 0.8em;
 }
 
 .box__date::after, .box__author::after {
