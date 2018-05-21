@@ -145,3 +145,10 @@ main {
 .box__content {
   text-align: justify;
 }
+
+@media only screen and (max-width: 600px) {
+  .box__wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+}
