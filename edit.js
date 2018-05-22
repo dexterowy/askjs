@@ -4,6 +4,33 @@
   edits.forEach(item => {
     item.addEventListener('click',edit)
   })
+  const add = document.querySelector('#add');
+  const list = document.querySelector('.edit__list');
+  add.addEventListener('click', function (e)  {
+  const item = document.createElement('li');
+  item.classList = "edit__item";
+  const span = document.createElement('span');
+  span.classList = "edit__cat";
+  const input = document.createElement('input');
+  span.appendChild(input);
+  const editBtn = document.createElement('button');
+  editBtn.classList = "edit btn btn-primary";
+  editBtn.addEventListener('click', edit);
+  editBtn.innerHTML = "Edit"
+  const delBtn = document.createElement('button');
+  delBtn.classList = "del btn btn-danger";
+  delBtn.innerHTML = "Delete with all posts";
+  const saveBtn = document.createElement('button');
+  saveBtn.classList = "save btn btn-success";
+  saveBtn.innerHTML = "Save";
+  saveBtn.addEventListener('click', save);
+  this.parentNode.appendChild(saveBtn);
+  item.appendChild(span);
+  item.appendChild(editBtn);
+  item.appendChild(delBtn);
+  item.appendChild(saveBtn);
+  list.appendChild(item);
+  })
 })();
 
 function edit(e) {

@@ -19,22 +19,23 @@
   <div class="edit">
     <ul class="edit__list">
       <li class="edit__item">
-        <span class="edit__cat">cat1</span><button class=" edit btn btn-primary">Edit</button><button class="btn btn-danger">Delete with all posts</button>
+        <span class="edit__cat">cat1</span><button class=" edit btn btn-primary">Edit</button><button class="del btn btn-danger">Delete with all posts</button>
       </li>
       <li class="edit__item">
-        <span class="edit__cat">cat2</span><button class=" edit btn btn-primary">Edit</button><button class="btn btn-danger">Delete with all posts</button>
+        <span class="edit__cat">cat2</span><button class=" edit btn btn-primary">Edit</button><button class="del btn btn-danger">Delete with all posts</button>
       </li>
       <li class="edit__item">
-        <span class="edit__cat">cat3</span><button class=" edit btn btn-primary">Edit</button><button class="btn btn-danger">Delete with all posts</button>
+        <span class="edit__cat">cat3</span><button class=" edit btn btn-primary">Edit</button><button class="del btn btn-danger">Delete with all posts</button>
       </li>
       <li class="edit__item">
-        <span class="edit__cat">cat4</span><button class=" edit btn btn-primary">Edit</button><button class="btn btn-danger">Delete with all posts</button>
+        <span class="edit__cat">cat4</span><button class=" edit btn btn-primary">Edit</button><button class="del btn btn-danger">Delete with all posts</button>
       </li>
       <li class="edit__item">
-        <span class="edit__cat">cat5</span><button class=" edit btn btn-primary">Edit</button><button class="btn btn-danger">Delete with all posts</button>
+        <span class="edit__cat">cat5</span><button class=" edit btn btn-primary">Edit</button><button class="del btn btn-danger">Delete with all posts</button>
       </li>
     </ul>
     <a href="./profile_admin.php" class="btn btn-primary">Back</a>
+    <button id="add" class="btn btn-success">Add</button>
   </div>
 
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
