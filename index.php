@@ -1,3 +1,16 @@
+<?php
+  session_start();
+  include("db_login.php");
+  if(!isset($_SESSION["user_id"])) {
+    header("Location: ./login.php");
+  }
+  else if(isset($_GET["logout"])) {
+    session_unset();
+    session_destroy();
+    header("Location: ./login.php");
+  }
+ ?>
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -11,50 +24,50 @@
 <body>
   <header>
     <h1 class="logo">
-      <a href="./index.html" class="logo__header">AskJS.com</a>
+      <a href="./index.php" class="logo__header">AskJS.com</a>
     </h1>
       <div class="panel">
-        <a href="./login.html" class="logout">
+        <a href="./index.php?logout=logout" class="logout">
           <button class="btn btn-danger">Logout</button>
         </a>
-        <a href="./profile.html" class="profile">
+        <a href="./profile.php" class="profile">
           <button class="btn btn-primary">Profile</button>
         </a>
       </div>
     <nav class="menu">
       <div class="menu__wrapper">
         <a href="" class="menu__main">Cat</a>
-        <div class="menu__sub"><a href="" class="menu__myasks">MyAsks</a><a href="" class="menu__public">Public</a><a href="./ask.html" class="menu__ask">ask now!</a></div>
+        <div class="menu__sub"><a href="" class="menu__myasks">MyAsks</a><a href="" class="menu__public">Public</a><a href="./ask.php" class="menu__ask">ask now!</a></div>
       </div>
       <div class="menu__wrapper">
         <a href="" class="menu__main">Cat</a>
-        <div class="menu__sub"><a href="" class="menu__myasks">MyAsks</a><a href="" class="menu__public">Public</a><a href="./ask.html" class="menu__ask">ask now!</a></div>
+        <div class="menu__sub"><a href="" class="menu__myasks">MyAsks</a><a href="" class="menu__public">Public</a><a href="./ask.php" class="menu__ask">ask now!</a></div>
       </div>
       <div class="menu__wrapper">
         <a href="" class="menu__main">Cat</a>
-        <div class="menu__sub"><a href="" class="menu__myasks">MyAsks</a><a href="" class="menu__public">Public</a><a href="./ask.html" class="menu__ask">ask now!</a></div>
+        <div class="menu__sub"><a href="" class="menu__myasks">MyAsks</a><a href="" class="menu__public">Public</a><a href="./ask.php" class="menu__ask">ask now!</a></div>
       </div>
       <div class="menu__wrapper">
         <a href="" class="menu__main">Cat</a>
-        <div class="menu__sub"><a href="" class="menu__myasks">MyAsks</a><a href="" class="menu__public">Public</a><a href="./ask.html" class="menu__ask">ask now!</a></div>
+        <div class="menu__sub"><a href="" class="menu__myasks">MyAsks</a><a href="" class="menu__public">Public</a><a href="./ask.php" class="menu__ask">ask now!</a></div>
       </div>
       <div class="menu__wrapper">
         <a href="" class="menu__main">Cat</a>
-        <div class="menu__sub"><a href="" class="menu__myasks">MyAsks</a><a href="" class="menu__public">Public</a><a href="./ask.html" class="menu__ask">ask now!</a></div>
+        <div class="menu__sub"><a href="" class="menu__myasks">MyAsks</a><a href="" class="menu__public">Public</a><a href="./ask.php" class="menu__ask">ask now!</a></div>
       </div>
       <div class="menu__wrapper">
         <a href="" class="menu__main">Cat</a>
-        <div class="menu__sub"><a href="" class="menu__myasks">MyAsks</a><a href="" class="menu__public">Public</a><a href="./ask.html" class="menu__ask">ask now!</a></div>
+        <div class="menu__sub"><a href="" class="menu__myasks">MyAsks</a><a href="" class="menu__public">Public</a><a href="./ask.php" class="menu__ask">ask now!</a></div>
       </div>
       <div class="menu__wrapper">
         <a href="" class="menu__main">Cat</a>
-        <div class="menu__sub"><a href="" class="menu__myasks">MyAsks</a><a href="" class="menu__public">Public</a><a href="./ask.html" class="menu__ask">ask now!</a></div>
+        <div class="menu__sub"><a href="" class="menu__myasks">MyAsks</a><a href="" class="menu__public">Public</a><a href="./ask.php" class="menu__ask">ask now!</a></div>
       </div>
   </nav>
   </header>
   <main>
     <section class="box">
-      <a href="question.html" class="box__wrapper">
+      <a href="question.php" class="box__wrapper">
         <div class="box__textside">
           <div class="box__info">
             <span class="box__date">19-05-2018</span>
@@ -71,7 +84,7 @@
       </a>
     </section>
     <section class="box">
-      <a href="question.html" class="box__wrapper">
+      <a href="question.php" class="box__wrapper">
         <div class="box__textside">
           <div class="box__info">
             <span class="box__date">19-05-2018</span>
@@ -88,7 +101,7 @@
       </a>
     </section>
     <section class="box">
-      <a href="question.html" class="box__wrapper">
+      <a href="question.php" class="box__wrapper">
         <div class="box__textside">
           <div class="box__info">
             <span class="box__date">19-05-2018</span>
@@ -105,7 +118,7 @@
       </a>
     </section>
     <section class="box">
-      <a href="question.html" class="box__wrapper">
+      <a href="question.php" class="box__wrapper">
         <div class="box__textside">
           <div class="box__info">
             <span class="box__date">19-05-2018</span>
@@ -122,7 +135,7 @@
       </a>
     </section>
     <section class="box">
-      <a href="question.html" class="box__wrapper">
+      <a href="question.php" class="box__wrapper">
         <div class="box__textside">
           <div class="box__info">
             <span class="box__date">19-05-2018</span>
@@ -139,7 +152,7 @@
       </a>
     </section>
     <section class="box">
-      <a href="question.html" class="box__wrapper">
+      <a href="question.php" class="box__wrapper">
         <div class="box__textside">
           <div class="box__info">
             <span class="box__date">19-05-2018</span>

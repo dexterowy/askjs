@@ -14,7 +14,7 @@
   <div class="question container">
     <header>
       <h1 class="logo">
-        <a href="./index.html" class="logo__header">AskJS.com</a>
+        <a href="./index.php" class="logo__header">AskJS.com</a>
       </h1>
     </header>
     <div class="question__header">
@@ -22,9 +22,9 @@
         This is some topic
       </h2>
       <div class="question__buttons">
-        <a href="answer.html" class="btn btn-success">Answer</a>
-        <a href="delete.html" class="btn btn-danger">Delete</a>
-        <a href="public.html" class="btn btn-primary">Public</a>
+        <a href="answer.php" class="btn btn-success">Answer</a>
+        <a href="delete.php" class="btn btn-danger">Delete</a>
+        <a href="public.php" class="btn btn-primary">Public</a>
       </div>
     </div>
     <div class="msg">

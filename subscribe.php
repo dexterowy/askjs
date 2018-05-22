@@ -6,23 +6,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-  <link rel="stylesheet" href="css/upload.css">
+  <link rel="stylesheet" href="css/subscribe.css">
   <title>AskJS.com</title>
 </head>
 
 <body>
   <header class="header">
     <h1 class="logo">
-      <a href="./index.html" class="logo__header">AskJS.com</a>
+      <a href="./index.php" class="logo__header">AskJS.com</a>
     </h1>
   </header>
-  <div class="upload">
-    <h2 class="upload__text">Change your profile photo!</h2>
-    <img id="img" src="https://via.placeholder.com/300x300" alt="" class="upload__img">
-    <form action="upload.php" class="upload__form">
-      <input id="imgInput" type="file" name="img">
-      <button class="btn btn-success" type="submit" name="send" value="submit">Zapisz</button>
-      <a href="./profile.html" class="btn btn-primary">Back</a>
+  <div class="subscribe">
+    <h2 class="subscribe__info">
+      Choose which categories you want to follow.
+    </h2>
+    <form action="subscribe.php" class="subscribe__list form-group">
+        <div>
+          <label for="cat1">cat1</label><input type="checkbox" id="cat1" name="category" value="cat1">
+        </div>
+        <div>
+          <label for="cat2">cat2</label><input type="checkbox" id="cat2" name="category" value="cat2">
+        </div>
+        <div>
+          <label for="cat3">cat3</label><input type="checkbox" id="cat3" name="category" value="cat3">
+        </div>
+        <div>
+          <label for="cat4">cat4</label><input type="checkbox" id="cat4" name="category" value="cat4">
+        </div>
+        <div>
+          <label for="cat5">cat5</label><input type="checkbox" id="cat5" name="category" value="cat5">
+        </div>
+      <button type="submit" class="btn btn-success" name="save" value="submit">Save</button>
+      <a href="profile.php" class="btn btn-primary">Back</a>
     </form>
   </div>
 

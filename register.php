@@ -6,26 +6,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-  <link rel="stylesheet" href="css/ask.css">
+  <link rel="stylesheet" href="css/register.css">
   <title>AskJS.com</title>
 </head>
 
 <body>
-  <header class="header">
+  <div class="register container">
     <h1 class="logo">
-      <a href="./index.html" class="logo__header">AskJS.com</a>
+      <a href="./index.php" class="logo__header">AskJS.com</a>
     </h1>
-  </header>
-  <div class="ask container">
-    <form action="ask.php" class="asking">
-      <input type="text" name="topic" placeholder="Topic" class="topic">
-      <textarea placeholder="Type question here..." class="message" name="message" rows="8" cols="80"></textarea>
-      <div class="buttons">
-        <input type="file" name="file" value="Add image">
-        <input type="submit" value="Ask!" class="send btn btn-success">
-      </div>
-    </form>
+    <div class="register__panel">
+      <h1 class="register__header">Register</h1>
+      <form action="" class="register__form">
+        <input type="text" placeholder="Name" name="name" class="register__input">
+        <input type="text" placeholder="Surname" name="surname" class="register__input">
+        <input type="text" placeholder="Email" name="email" class="register__input">
+        <input type="text" placeholder="Login" name="login" class="register__input">
+        <input type="password" placeholder="Password" name="pass" class="register__input">
+        <a href="./login.php" class="register__btn btn btn-success">Register</a>
+      </form>
+    </div>
   </div>
+
 
 
 

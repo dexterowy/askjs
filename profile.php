@@ -11,7 +11,7 @@
 <body>
   <header class="profile">
     <h1 class="logo">
-      <a href="./index.html" class="logo__header">AskJS.com</a>
+      <a href="./index.php" class="logo__header">AskJS.com</a>
     </h1>
   </header>
   <main>
@@ -20,16 +20,15 @@
           <img class="profile__img" src="https://via.placeholder.com/300x300" alt="">
         <div class="profile__info">
           <h2 class="profile_login">Dexterowy</h2>
-          <p class="profile__type">Rank: <span class="namedb">Moderator</span></p>
+          <p class="profile__type">Rank: <span class="rankdb">user</span></p>
           <p class="profile__name">Name: <span class="namedb">Mateusz</span></p>
           <p class="profile__surname">Surname: <span class="surnamedb">Szczotarz</span></p>
           <p class="profile__email">Email: <span class="emaildb">mateusz.szczotarz@gmail.com</span></p>
         </div>
       </div>  <!-- end panel -->
       <div class="profile__buttons">
-        <a href="./upload.html" class="btn btn-primary">Upload avatar</a>
-        <a href="./edit.html" class="btn btn-primary">Edit categories</a>
-        <a href="./index.html" class="btn btn-success">New questions</a>
+        <a href="./upload.php" class="btn btn-primary">Upload avatar</a>
+        <a href="./subscribe.php" class="btn btn-primary">Subscribe categories</a>
       </div>  <!-- end buttons -->
       <div class="stats">
         <h2 class="stats__header">Stats</h2>
@@ -37,9 +36,8 @@
   <thead>
     <tr>
       <th scope="col">Category</th>
-      <th scope="col">New</th>
+      <th scope="col">Questions</th>
       <th scope="col">Accepted</th>
-      <th scope="col">Published</th>
     </tr>
   </thead>
   <tbody>
@@ -47,20 +45,17 @@
       <th scope="row">NodeJS</th>
       <td>154</td>
       <td>54</td>
-      <td>54</td>
 
     </tr>
     <tr>
       <th scope="row">React</th>
       <td>12</td>
       <td>11</td>
-      <td>11</td>
 
     </tr>
     <tr>
       <th scope="row">jQuery</th>
       <td>12468</td>
-      <td>10468</td>
       <td>10468</td>
     </tr>
   </tbody>

@@ -13,7 +13,7 @@
 <body>
   <header class="header">
     <h1 class="logo">
-      <a href="./index.html" class="logo__header">AskJS.com</a>
+      <a href="./index.php" class="logo__header">AskJS.com</a>
     </h1>
   </header>
   <div class="edit">
@@ -34,7 +34,7 @@
         <span class="edit__cat">cat5</span><button class=" edit btn btn-primary">Edit</button><button class="btn btn-danger">Delete with all posts</button>
       </li>
     </ul>
-    <a href="./profile_admin.html" class="btn btn-primary">Back</a>
+    <a href="./profile_admin.php" class="btn btn-primary">Back</a>
   </div>
 
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

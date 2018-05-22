@@ -1,3 +1,33 @@
+<?php
+  session_start();
+  include("db_login.php");
+  if(isset($_SESSION["user_id"])) {
+    header("Location: ./index.php");
+  }
+  else {
+    include("db_login.php");
+    if(!empty($_POST["login"]) && !empty($_POST["pass"])) {
+      $login = mysqli_real_escape_string($conn, $_POST["login"]);
+      $passwd = mysqli_real_escape_string($conn, $_POST["pass"]);
+      echo ($login." ".$passwd);
+
+      $sql = "SELECT id FROM users where login='$login' and password='$passwd';";
+      $result = mysqli_query($conn, $sql);
+      if (mysqli_num_rows($result) > 0) {
+          // output data of each row
+          while($row = mysqli_fetch_assoc($result)) {
+            $_SESSION["user_id"] = $row["id"];
+            header("Location: ./index.php");
+          }
+
+      }
+      else {
+        header("Location: ./login.php?login=fail");
+      }
+    }
+  }
+ ?>
+
 <!DOCTYPE html>
 <html lang="pl">
 
@@ -13,15 +43,19 @@
 <body>
   <header class="login container">
     <h1 class="logo">
-      <a href="./index.html" class="logo__header">AskJS.com</a>
+      <a href="./index.php" class="logo__header">AskJS.com</a>
     </h1>
+    <?php if(isset($_GET["login"])) {
+      echo ("<div class='alert alert-danger'>Wrong login or password!</div>");
+    } ?>
+
     <div class="login__panel">
       <h1 class="login__header">Login</h1>
-      <form action="" class="login__form">
+      <form action="login.php" method="post" class="login__form">
         <input type="text" placeholder="Login" name="login" class="login__input">
         <input type="password" placeholder="Password" name="pass" class="login__input">
-        <a href="./index.html" class="login__btn btn btn-success">Login</a>
-        <a href="./register.html" class="register__btn btn btn-danger">Register</a>
+        <button type="submit" href="./index.php" class="login__btn btn btn-success">Login</button>
+        <a href="./register.php" class="register__btn btn btn-danger">Register</a>
       </form>
     </div>
   </header>
