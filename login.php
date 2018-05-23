@@ -57,7 +57,7 @@
       <form action="login.php" method="post" class="login__form">
         <input type="text" placeholder="Login" name="login" class="login__input">
         <input type="password" placeholder="Password" name="pass" class="login__input">
-        <button type="submit" href="./index.php" class="login__btn btn btn-success">Login</button>
+        <button type="submit" class="login__btn btn btn-success">Login</button>
         <a href="./register.php" class="register__btn btn btn-danger">Register</a>
       </form>
     </div>

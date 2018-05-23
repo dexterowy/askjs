@@ -1,3 +1,20 @@
+<?php
+  session_start();
+  include("db_login.php");
+  if(!isset($_SESSION["user_id"])) {
+    header("Location: ./login.php");
+  }
+  else {
+    $sql = "SELECT name FROM categories where admin_id = ".$_SESSION["user_id"].";";
+    $result = mysqli_query($conn, $sql);
+    $cats = [];
+    if(mysqli_num_rows($result) > 0) {
+      while($row = mysqli_fetch_assoc($result)) {
+        array_push($cats, $row["name"]);
+      }
+    }
+  }
+  ?>
 <!DOCTYPE html>
 <html lang="pl">
 
@@ -18,21 +35,13 @@
   </header>
   <div class="edit">
     <ul class="edit__list">
-      <li class="edit__item">
-        <span class="edit__cat">cat1</span><button class=" edit btn btn-primary">Edit</button><button class="del btn btn-danger">Delete with all posts</button>
-      </li>
-      <li class="edit__item">
-        <span class="edit__cat">cat2</span><button class=" edit btn btn-primary">Edit</button><button class="del btn btn-danger">Delete with all posts</button>
-      </li>
-      <li class="edit__item">
-        <span class="edit__cat">cat3</span><button class=" edit btn btn-primary">Edit</button><button class="del btn btn-danger">Delete with all posts</button>
-      </li>
-      <li class="edit__item">
-        <span class="edit__cat">cat4</span><button class=" edit btn btn-primary">Edit</button><button class="del btn btn-danger">Delete with all posts</button>
-      </li>
-      <li class="edit__item">
-        <span class="edit__cat">cat5</span><button class=" edit btn btn-primary">Edit</button><button class="del btn btn-danger">Delete with all posts</button>
-      </li>
+      <?php
+        foreach ($cats as $item) {
+          echo ("
+          <li class='edit__item'><span class='edit__cat'>$item</span><div class='edit__itemBtn'><button class=' edit btn btn-primary'>Edit</button><button class='del btn btn-danger'>Delete with all posts</button></div></li>
+          ");
+        }
+        ?>
     </ul>
     <a href="./profile_admin.php" class="btn btn-primary">Back</a>
     <button id="add" class="btn btn-success">Add</button>

@@ -38,10 +38,16 @@ header {
 }
 .edit__list {
   list-style: none;
+
 }
 .edit__item {
   margin: 10px;
+  display: flex;
+  justify-content: space-between;
 }
 .edit__item button, .edit__cat {
   margin: 0 10px;
+}
+.edit_cat {
+
 }

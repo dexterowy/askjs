@@ -1,3 +1,51 @@
+<?php
+  session_start();
+  include("db_login.php");
+  if(!isset($_SESSION["user_id"])) {
+    header("Location: ./login.php");
+  }
+  else {
+      $sql = "select name from categories;";
+      $result = mysqli_query($conn, $sql);
+      $cats = [];
+
+      if(mysqli_num_rows($result) > 0) {
+
+        while($row = mysqli_fetch_assoc($result)) {
+          array_push($cats, $row["name"]);
+        }
+      }
+      $sql = "select categories.name from subscribes INNER JOIN categories on subscribes.category_id = categories.id where subscribes.users_id=".$_SESSION["user_id"].";";
+      $result = mysqli_query($conn, $sql);
+      $checked = [];
+
+      if(mysqli_num_rows($result) > 0) {
+
+        while($row = mysqli_fetch_assoc($result)) {
+          array_push($checked, $row["name"]);
+        }
+      }
+
+    }
+  if(isset($_POST["save"])) {
+
+    $sql = "DELETE FROM subscribes WHERE users_id=".$_SESSION["user_id"].";";
+    if($deleted=mysqli_query($conn, $sql)) {
+      $completed = true;
+        foreach ($_POST as $item) {
+          $sql = "INSERT INTO subscribes (users_id, category_id) VALUES (".$_SESSION["user_id"].", (SELECT id FROM categories where name= '".$item."'));";
+          if($updated = mysqli_query($conn, $sql)) {
+
+          }
+          else {
+            $completed = false;
+          }
+        }
+          header("Location: ./subscribe.php?saved=true");
+    }
+
+  }
+  ?>
 <!DOCTYPE html>
 <html lang="pl">
 
@@ -20,23 +68,34 @@
     <h2 class="subscribe__info">
       Choose which categories you want to follow.
     </h2>
-    <form action="subscribe.php" class="subscribe__list form-group">
-        <div>
-          <label for="cat1">cat1</label><input type="checkbox" id="cat1" name="category" value="cat1">
-        </div>
-        <div>
-          <label for="cat2">cat2</label><input type="checkbox" id="cat2" name="category" value="cat2">
-        </div>
-        <div>
-          <label for="cat3">cat3</label><input type="checkbox" id="cat3" name="category" value="cat3">
-        </div>
-        <div>
-          <label for="cat4">cat4</label><input type="checkbox" id="cat4" name="category" value="cat4">
-        </div>
-        <div>
-          <label for="cat5">cat5</label><input type="checkbox" id="cat5" name="category" value="cat5">
-        </div>
-      <button type="submit" class="btn btn-success" name="save" value="submit">Save</button>
+    <?php if(isset($_GET["saved"])) {
+      echo ("<div class='alert alert-success'>Your subscribes has beed saved!</div>");
+    } ?>
+    <form action="subscribe.php" method="post" class="subscribe__list form-group">
+        <?php
+          foreach ($cats as $cat) {
+            $check = false;
+            foreach ($checked as $item) {
+              if($cat == $item) {
+                $check = true;
+                break;
+              }
+            }
+            if($check) {
+              echo ('
+              <div>
+                <label for="'.$cat.'">'.$cat.'</label><input checked type="checkbox" id="'.$cat.'" name="'.$cat.'" value="'.$cat.'">
+              </div>');
+            }
+            else {
+              echo ('
+              <div>
+                <label for="'.$cat.'">'.$cat.'</label><input type="checkbox" id="'.$cat.'" name="'.$cat.'" value="'.$cat.'">
+              </div>');
+            }
+          }
+         ?>
+      <button type="submit" name="save" class="btn btn-success">Save</button>
       <a href="profile.php" class="btn btn-primary">Back</a>
     </form>
   </div>
