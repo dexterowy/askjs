@@ -1,3 +1,43 @@
+<?php
+session_start();
+if(isset($_SESSION["user_id"])) {
+  header("Location: ./index.php");
+}
+else {
+  include("db_login.php");
+  if(isset($_POST["login"]) && isset($_POST["pass"]) && isset($_POST["name"]) && isset($_POST["surname"]) && isset($_POST["email"])) {
+    $login = mysqli_real_escape_string($conn, $_POST["login"]);
+    $passwd = mysqli_real_escape_string($conn, $_POST["pass"]);
+    $name = mysqli_real_escape_string($conn, $_POST["name"]);
+    $surname = mysqli_real_escape_string($conn, $_POST["surname"]);
+    $email = mysqli_real_escape_string($conn, $_POST["email"]);
+
+    $sql_login = "SELECT login, email FROM users WHERE login='$login' OR email='$email';";
+    $result = mysqli_query($conn, $sql_login);
+    if(mysqli_num_rows($result) > 0) {
+      while($row = mysqli_fetch_assoc($result)){
+        if($row["login"] == $login) {
+          header("Location: ./register.php?fail=login");
+        }
+        else if($row["email"] == $email) {
+          header("Location: ./register.php?fail=email");
+        }
+      }
+    }
+    else {
+      if(!empty($_POST["login"]) && !empty($_POST["pass"]) && !empty($_POST["name"]) && !empty($_POST["surname"]) && !empty($_POST["email"])) {
+        $sql_register = "INSERT INTO users (id, login, password, email, avt_path, rank, name, surname) VALUES
+        (NULL,'$login', '$passwd', '$email', NULL, 'User', '$name', '$surname');";
+        if($result = mysqli_query($conn, $sql_register)) {
+          header("Location: ./login.php?register");
+        }
+      }
+    }
+  }
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="pl">
 
@@ -17,13 +57,27 @@
     </h1>
     <div class="register__panel">
       <h1 class="register__header">Register</h1>
-      <form action="" class="register__form">
+      <form action="./register.php" method="post" class="register__form">
         <input type="text" placeholder="Name" name="name" class="register__input">
         <input type="text" placeholder="Surname" name="surname" class="register__input">
+        <?php if(isset($_GET["fail"])) {
+          if($_GET["fail"] == "email"){
+            echo (
+              "<span class='alert alert-danger'>User with this email already exists</span>"
+            );
+          }
+        } ?>
         <input type="text" placeholder="Email" name="email" class="register__input">
+        <?php if(isset($_GET["fail"])) {
+          if($_GET["fail"] == "login"){
+            echo (
+              "<span class='alert alert-danger'>User with this login already exists</span>"
+            );
+          }
+        } ?>
         <input type="text" placeholder="Login" name="login" class="register__input">
         <input type="password" placeholder="Password" name="pass" class="register__input">
-        <a href="./login.php" class="register__btn btn btn-success">Register</a>
+        <button type="submit" class="register__btn btn btn-success">Register</button>
       </form>
     </div>
   </div>

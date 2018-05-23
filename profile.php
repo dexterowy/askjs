@@ -1,3 +1,16 @@
+<?php
+  session_start();
+  include("db_login.php");
+  if(isset($_SESSION["user_id"])) {
+    header("Location: ./index.php");
+  }
+  else {
+    include("db_login.php");
+    
+    }
+  }
+ ?>
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>

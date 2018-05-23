@@ -48,6 +48,9 @@
     <?php if(isset($_GET["login"])) {
       echo ("<div class='alert alert-danger'>Wrong login or password!</div>");
     } ?>
+    <?php if(isset($_GET["register"])) {
+      echo ("<div class='alert alert-success'>Your account has been crated! Please log in!</div>");
+    } ?>
 
     <div class="login__panel">
       <h1 class="login__header">Login</h1>
