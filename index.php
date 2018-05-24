@@ -35,34 +35,33 @@
         </a>
       </div>
     <nav class="menu">
-      <div class="menu__wrapper">
+      <?php
+      if(isset($_SESSION["user_id"])) {
+        $sql = "SELECT categories.id, categories.name FROM categories INNER JOIN subscribes ON categories.id = subscribes.category_id WHERE subscribes.users_id = ".$_SESSION["user_id"].";";
+        $result = mysqli_query($conn, $sql);
+        if(mysqli_num_rows($result) > 0) {
+          while($row = mysqli_fetch_assoc($result)) {
+            echo ("
+            <div class='menu__wrapper'>
+              <a href='./index.php?cat=".$row["id"]."&filter=all' class='menu__main'>".$row["name"]."</a>
+              <div class='menu__sub'><a href='./index.php?cat=".$row["id"]."&filter=myasks' class='menu__myasks'>MyAsks</a><a href='./index.php?cat=".$row["id"]."&filter=public' class='menu__public'>Public</a><a href='./ask.php?cat=".$row["id"]."' class='menu__ask'>ask now!</a></div>
+            </div>
+            ");
+          }
+        }
+        else {
+          echo ("
+          <div class='menu__wrapper'>
+            <a href='./subscribe.php' class='menu__main'>You have not subscribed any categories. You can do it in your profile panel (or click here)!</a>
+          </div>
+          ");
+        }
+      }
+       ?>
+      <!-- <div class="menu__wrapper">
         <a href="" class="menu__main">Cat</a>
         <div class="menu__sub"><a href="" class="menu__myasks">MyAsks</a><a href="" class="menu__public">Public</a><a href="./ask.php" class="menu__ask">ask now!</a></div>
-      </div>
-      <div class="menu__wrapper">
-        <a href="" class="menu__main">Cat</a>
-        <div class="menu__sub"><a href="" class="menu__myasks">MyAsks</a><a href="" class="menu__public">Public</a><a href="./ask.php" class="menu__ask">ask now!</a></div>
-      </div>
-      <div class="menu__wrapper">
-        <a href="" class="menu__main">Cat</a>
-        <div class="menu__sub"><a href="" class="menu__myasks">MyAsks</a><a href="" class="menu__public">Public</a><a href="./ask.php" class="menu__ask">ask now!</a></div>
-      </div>
-      <div class="menu__wrapper">
-        <a href="" class="menu__main">Cat</a>
-        <div class="menu__sub"><a href="" class="menu__myasks">MyAsks</a><a href="" class="menu__public">Public</a><a href="./ask.php" class="menu__ask">ask now!</a></div>
-      </div>
-      <div class="menu__wrapper">
-        <a href="" class="menu__main">Cat</a>
-        <div class="menu__sub"><a href="" class="menu__myasks">MyAsks</a><a href="" class="menu__public">Public</a><a href="./ask.php" class="menu__ask">ask now!</a></div>
-      </div>
-      <div class="menu__wrapper">
-        <a href="" class="menu__main">Cat</a>
-        <div class="menu__sub"><a href="" class="menu__myasks">MyAsks</a><a href="" class="menu__public">Public</a><a href="./ask.php" class="menu__ask">ask now!</a></div>
-      </div>
-      <div class="menu__wrapper">
-        <a href="" class="menu__main">Cat</a>
-        <div class="menu__sub"><a href="" class="menu__myasks">MyAsks</a><a href="" class="menu__public">Public</a><a href="./ask.php" class="menu__ask">ask now!</a></div>
-      </div>
+      </div> -->
   </nav>
   </header>
   <main>
@@ -75,14 +74,94 @@
             <span class="box__cat">NodeJS</span>
           </div>
           <h2 class="box__header">Konfiguracja Express.JS</h2>
-
             <div class="box__content">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              <span>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              </span>
             </div>
         </div>
-        <div class="box__imgWrapper"><img src="https://via.placeholder.com/300x300" alt="placeholder" class="box__image"></div>
+        <img class="box_img" src="https://via.placeholder.com/300x300" alt="placeholder">
       </a>
     </section>
+
+    <section class="box">
+      <a href="question.php" class="box__wrapper">
+        <div class="box__textside">
+          <div class="box__info">
+            <span class="box__date">19-05-2018</span>
+            <span class="box__author">Mateusz Szczotarz</span>
+            <span class="box__cat">NodeJS</span>
+          </div>
+          <h2 class="box__header">Konfiguracja Express.JS</h2>
+            <div class="box__content">
+              <span>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              </span>
+            </div>
+        </div>
+        <img class="box_img" src="https://via.placeholder.com/300x300" alt="placeholder">
+      </a>
+    </section>
+
+    <section class="box">
+      <a href="question.php" class="box__wrapper">
+        <div class="box__textside">
+          <div class="box__info">
+            <span class="box__date">19-05-2018</span>
+            <span class="box__author">Mateusz Szczotarz</span>
+            <span class="box__cat">NodeJS</span>
+          </div>
+          <h2 class="box__header">Konfiguracja Express.JS</h2>
+            <div class="box__content">
+              <span>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              </span>
+            </div>
+        </div>
+        <img class="box_img" src="https://via.placeholder.com/300x300" alt="placeholder">
+      </a>
+    </section>
+
+    <section class="box">
+      <a href="question.php" class="box__wrapper">
+        <div class="box__textside">
+          <div class="box__info">
+            <span class="box__date">19-05-2018</span>
+            <span class="box__author">Mateusz Szczotarz</span>
+            <span class="box__cat">NodeJS</span>
+          </div>
+          <h2 class="box__header">Konfiguracja Express.JS</h2>
+            <div class="box__content">
+              <span>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              </span>
+            </div>
+        </div>
+        <img class="box_img" src="https://via.placeholder.com/300x300" alt="placeholder">
+      </a>
+    </section>
+
+    <section class="box">
+      <a href="question.php" class="box__wrapper">
+        <div class="box__textside">
+          <div class="box__info">
+            <span class="box__date">19-05-2018</span>
+            <span class="box__author">Mateusz Szczotarz</span>
+            <span class="box__cat">NodeJS</span>
+          </div>
+          <h2 class="box__header">Konfiguracja Express.JS</h2>
+            <div class="box__content">
+              <span>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              </span>
+            </div>
+        </div>
+        <img class="box_img" src="https://via.placeholder.com/300x300" alt="placeholder">
+      </a>
+    </section>
+
+
+    <!--
     <section class="box">
       <a href="question.php" class="box__wrapper">
         <div class="box__textside">
@@ -100,74 +179,8 @@
         <div class="box__imgWrapper"><img src="https://via.placeholder.com/300x300" alt="placeholder" class="box__image"></div>
       </a>
     </section>
-    <section class="box">
-      <a href="question.php" class="box__wrapper">
-        <div class="box__textside">
-          <div class="box__info">
-            <span class="box__date">19-05-2018</span>
-            <span class="box__author">Mateusz Szczotarz</span>
-            <span class="box__cat">NodeJS</span>
-          </div>
-          <h2 class="box__header">Konfiguracja Express.JS</h2>
+   -->
 
-            <div class="box__content">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </div>
-        </div>
-        <div class="box__imgWrapper"><img src="https://via.placeholder.com/300x300" alt="placeholder" class="box__image"></div>
-      </a>
-    </section>
-    <section class="box">
-      <a href="question.php" class="box__wrapper">
-        <div class="box__textside">
-          <div class="box__info">
-            <span class="box__date">19-05-2018</span>
-            <span class="box__author">Mateusz Szczotarz</span>
-            <span class="box__cat">NodeJS</span>
-          </div>
-          <h2 class="box__header">Konfiguracja Express.JS</h2>
-
-            <div class="box__content">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </div>
-        </div>
-        <div class="box__imgWrapper"><img src="https://via.placeholder.com/300x300" alt="placeholder" class="box__image"></div>
-      </a>
-    </section>
-    <section class="box">
-      <a href="question.php" class="box__wrapper">
-        <div class="box__textside">
-          <div class="box__info">
-            <span class="box__date">19-05-2018</span>
-            <span class="box__author">Mateusz Szczotarz</span>
-            <span class="box__cat">NodeJS</span>
-          </div>
-          <h2 class="box__header">Konfiguracja Express.JS</h2>
-
-            <div class="box__content">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </div>
-        </div>
-        <div class="box__imgWrapper"><img src="https://via.placeholder.com/300x300" alt="placeholder" class="box__image"></div>
-      </a>
-    </section>
-    <section class="box">
-      <a href="question.php" class="box__wrapper">
-        <div class="box__textside">
-          <div class="box__info">
-            <span class="box__date">19-05-2018</span>
-            <span class="box__author">Mateusz Szczotarz</span>
-            <span class="box__cat">NodeJS</span>
-          </div>
-          <h2 class="box__header">Konfiguracja Express.JS</h2>
-
-            <div class="box__content">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </div>
-        </div>
-        <div class="box__imgWrapper"><img src="https://via.placeholder.com/300x300" alt="placeholder" class="box__image"></div>
-      </a>
-    </section>
   </main>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

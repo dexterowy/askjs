@@ -139,18 +139,22 @@ main {
 }
 
 .box__text {
-  display: flex;
+  /* display: flex;
   width: 100%;
-  align-items: center;
+  align-items: center; */
 }
 
 .box__content {
-  text-align: justify;
+
+}
+.box_img {
+  /* float: right; */
+
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 1000px) {
   .box__wrapper {
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
   }
 }

@@ -1,11 +1,56 @@
 <?php
   session_start();
   include("db_login.php");
-  if(!isset($_SESSION["user_id"]) && $_SESSION["user_rank"] != "Admin") {
+  if(!(isset($_SESSION["user_id"])) || $_SESSION["user_rank"] != "Admin") {
     header("Location: ./login.php");
   }
   else {
-    $sql = "SELECT name FROM categories where admin_id = ".$_SESSION["user_id"].";";
+    if(isset($_GET["save"])) {
+      $cat = mysqli_real_escape_string($conn, $_GET["save"]);
+      $sql = "SELECT id FROM categories WHERE name = '$cat';";
+      $result = mysqli_query($conn, $sql);
+      if(mysqli_num_rows($result) > 0) {
+        header("Location: ./edit.php?fail=name");
+      }
+      else {
+        if(isset($_GET["edit"])) {
+          $old = mysqli_real_escape_string($conn, $_GET["edit"]);
+          $new = mysqli_real_escape_string($conn, $_GET["save"]);
+          $sql = "SELECT categories.name from categories INNER JOIN cat_mang ON categories.id = cat_mang.categories_id WHERE cat_mang.users_id = ".$_SESSION["user_id"]." AND categories.name = '$old';";
+          $result = mysqli_query($conn, $sql);
+          if (mysqli_num_rows($result) > 0) {
+            $sql = "UPDATE categories SET name='$new' WHERE name='$old';";
+            mysqli_query($conn, $sql);
+          }
+          else {
+            header("Location: ./edit.php?fail=hack");
+          }
+        }
+        else {
+          $sql = "INSERT INTO categories (id ,name) values(NULL, '$cat')";
+          if(mysqli_query($conn, $sql)) {
+            $id = mysqli_insert_id($conn);
+            $sql = "INSERT INTO cat_mang (categories_id , users_id) values($id, ".$_SESSION["user_id"].")";
+            mysqli_query($conn, $sql);
+          }
+        }
+      }
+    }
+    if(isset($_GET["delete"])) {
+      $sql = "SELECT categories.name from categories INNER JOIN cat_mang ON categories.id = cat_mang.categories_id WHERE cat_mang.users_id = ".$_SESSION["user_id"]." AND categories.name = '".$_GET["delete"]."';";
+      $result = mysqli_query($conn, $sql);
+      if (mysqli_num_rows($result) > 0) {
+        $cat = mysqli_real_escape_string($conn, $_GET["delete"]);
+        $uid = mysqli_real_escape_string($conn, $_SESSION["user_id"]);
+        $sql = "DELETE FROM categories WHERE name = '$cat';";
+        mysqli_query($conn, $sql);
+      }
+      else {
+        header("Location: ./edit.php?fail=hack");
+      }
+
+    }
+    $sql = "SELECT categories.name from categories INNER JOIN cat_mang ON categories.id = cat_mang.categories_id WHERE cat_mang.users_id = '".$_SESSION["user_id"]."';";
     $result = mysqli_query($conn, $sql);
     $cats = [];
     if(mysqli_num_rows($result) > 0) {
@@ -34,6 +79,36 @@
     </h1>
   </header>
   <div class="edit">
+    <?php
+      if(isset($_GET["fail"])){
+        if($_GET["fail"] == "hack") {
+          echo (
+            "<span class='alert alert-danger'>Stop it!</span>"
+          );
+        }
+        elseif ($_GET["fail"] ==  "name") {
+          echo (
+            "<span class='alert alert-danger'>Category with chosen name already exists</span>"
+          );
+        }
+
+      }
+      if(isset($_GET["save"]) && !isset($_GET["edit"])) {
+        echo (
+          "<span class='alert alert-success'>New category '".$_GET["save"]."' has been created!</span>"
+        );
+      }
+      if(isset($_GET["save"]) && isset($_GET["edit"])) {
+        echo (
+          "<span class='alert alert-success'>Category name has been changed!</span>"
+        );
+      }
+      if(isset($_GET["delete"])){
+        echo (
+          "<span class='alert alert-info'>Category '".$_GET["delete"]."' has been deleted!</span>"
+        );
+      }
+       ?>
     <ul class="edit__list">
       <?php
         foreach ($cats as $item) {
@@ -43,7 +118,7 @@
         }
         ?>
     </ul>
-    <a href="./profile_admin.php" class="btn btn-primary">Back</a>
+    <a href="./profile.php" class="btn btn-primary">Back</a>
     <button id="add" class="btn btn-success">Add</button>
   </div>
 

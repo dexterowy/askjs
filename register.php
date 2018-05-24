@@ -8,6 +8,9 @@ else {
   if(isset($_POST["login"]) && isset($_POST["pass"]) && isset($_POST["name"]) && isset($_POST["surname"]) && isset($_POST["email"])) {
     $login = mysqli_real_escape_string($conn, $_POST["login"]);
     $passwd = mysqli_real_escape_string($conn, $_POST["pass"]);
+
+    $hashed = password_hash($passwd, PASSWORD_DEFAULT);
+
     $name = mysqli_real_escape_string($conn, $_POST["name"]);
     $surname = mysqli_real_escape_string($conn, $_POST["surname"]);
     $email = mysqli_real_escape_string($conn, $_POST["email"]);
@@ -27,7 +30,7 @@ else {
     else {
       if(!empty($_POST["login"]) && !empty($_POST["pass"]) && !empty($_POST["name"]) && !empty($_POST["surname"]) && !empty($_POST["email"])) {
         $sql_register = "INSERT INTO users (id, login, password, email, avt_path, rank, name, surname) VALUES
-        (NULL,'$login', '$passwd', '$email', NULL, 'User', '$name', '$surname');";
+        (NULL,'$login', '$hashed', '$email', NULL, 'User', '$name', '$surname');";
         if($result = mysqli_query($conn, $sql_register)) {
           header("Location: ./login.php?register");
         }

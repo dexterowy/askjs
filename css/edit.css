@@ -38,7 +38,7 @@ header {
 }
 .edit__list {
   list-style: none;
-
+  margin-top: 20px;
 }
 .edit__item {
   margin: 10px;
