@@ -54,7 +54,8 @@ function edit(e) {
 
 function save(e) {
   const cat = this.parentNode.parentNode.children[0].children[0].value;
-  console.log(cat);
+  window.location.href = "./edit.php?save="+cat;
+
   this.parentNode.parentNode.children[0].innerHTML = cat;
   this.parentNode.children[0].addEventListener('click', edit);
   this.parentNode.removeChild(this);
