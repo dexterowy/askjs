@@ -23,8 +23,9 @@
       </h2>
       <div class="question__buttons">
         <a href="answer.php" class="btn btn-success">Answer</a>
-        <a href="delete.php" class="btn btn-danger">Delete</a>
+        <a href="" class="btn btn-info">Edit</a>
         <a href="public.php" class="btn btn-primary">Public</a>
+        <a href="delete.php" class="btn btn-danger">Delete</a>
       </div>
     </div>
     <div class="msg">
