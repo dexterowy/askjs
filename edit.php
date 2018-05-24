@@ -1,7 +1,7 @@
 <?php
   session_start();
   include("db_login.php");
-  if(!isset($_SESSION["user_id"])) {
+  if(!isset($_SESSION["user_id"]) && $_SESSION["user_rank"] != "Admin") {
     header("Location: ./login.php");
   }
   else {

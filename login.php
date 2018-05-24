@@ -11,12 +11,13 @@
       $passwd = mysqli_real_escape_string($conn, $_POST["pass"]);
       echo ($login." ".$passwd);
 
-      $sql = "SELECT id FROM users where login='$login' and password='$passwd';";
+      $sql = "SELECT id, rank FROM users where login='$login' and password='$passwd';";
       $result = mysqli_query($conn, $sql);
       if (mysqli_num_rows($result) > 0) {
           // output data of each row
           while($row = mysqli_fetch_assoc($result)) {
             $_SESSION["user_id"] = $row["id"];
+            $_SESSION["user_rank"] = $row["rank"];
             header("Location: ./index.php");
           }
 
