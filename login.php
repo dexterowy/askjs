@@ -10,7 +10,7 @@
       $login = mysqli_real_escape_string($conn, $_POST["login"]);
       $passwd = mysqli_real_escape_string($conn, $_POST["pass"]);
 
-      $sql = "SELECT id, rank, password FROM users where login='$login';";
+      $sql = "SELECT id, rank, password, date FROM users where login='$login';";
       $result = mysqli_query($conn, $sql);
       if (mysqli_num_rows($result) > 0) {
           // output data of each row
@@ -18,6 +18,8 @@
             if(password_verify($passwd, $row["password"]) == 1) {
               $_SESSION["user_id"] = $row["id"];
               $_SESSION["user_rank"] = $row["rank"];
+              $last = $row["date"];
+              mysqli_query($conn, "UPDATE users SET date='".date("Y-m-d")."', last='$last' WHERE id=".$_SESSION["user_id"].";");
               header("Location: ./index.php");
             }
             else {

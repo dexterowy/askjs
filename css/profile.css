@@ -51,12 +51,12 @@ header {
 .profile__info {
   padding: 10px;
 }
-.profile__name, .profile__surname, .profile__email, .profile__type {
+.profile__name, .profile__surname, .profile__email, .profile__type, .profile__date {
   font-weight: bold;
   margin: 0;
 }
 
-.namedb, .surnamedb, .emaildb {
+.namedb, .surnamedb, .emaildb, .datedb {
   font-weight: normal;
 }
 .profile__buttons {

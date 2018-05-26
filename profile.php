@@ -7,12 +7,13 @@
   else {
       $sql = "select * from users where id=".$_SESSION['user_id'].";";
       $result = mysqli_query($conn, $sql);
-      $rank = '';
-      $name = '';
-      $surname = '';
-      $email = '';
-      $login = '';
-      $avt_path = '';
+      // $rank = '';
+      // $name = '';
+      // $surname = '';
+      // $email = '';
+      // $login = '';
+      // $avt_path = '';
+      // $date = '';
 
       if(mysqli_num_rows($result) > 0) {
 
@@ -22,6 +23,10 @@
           $rank = $row["rank"];
           $email = $row["email"];
           $login = $row["login"];
+          $date = $row["last"];
+          if($date == "") {
+            $date = "never";
+          }
           echo $row["avt_path"];
           if(!$row["avt_path"]) {
             $avt_path = "https://via.placeholder.com/300x300";
@@ -62,6 +67,7 @@
           <p class="profile__name">Name: <span class="namedb"><?php echo $name; ?></span></p>
           <p class="profile__surname">Surname: <span class="surnamedb"><?php echo $surname; ?></span></p>
           <p class="profile__email">Email: <span class="emaildb"><?php echo $email; ?></span></p>
+          <p class="profile__date">Last log in: <span class="datedb"><?php echo $date;?></span></p>
         </div>
       </div>  <!-- end panel -->
       <div class="profile__buttons">

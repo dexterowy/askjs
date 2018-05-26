@@ -29,8 +29,8 @@ else {
     }
     else {
       if(!empty($_POST["login"]) && !empty($_POST["pass"]) && !empty($_POST["name"]) && !empty($_POST["surname"]) && !empty($_POST["email"])) {
-        $sql_register = "INSERT INTO users (id, login, password, email, avt_path, rank, name, surname) VALUES
-        (NULL,'$login', '$hashed', '$email', NULL, 'User', '$name', '$surname');";
+        $sql_register = "INSERT INTO users (id, login, password, email, avt_path, rank, name, surname, date, last) VALUES
+        (NULL,'$login', '$hashed', '$email', NULL, 'User', '$name', '$surname', NULL, NULL);";
         if($result = mysqli_query($conn, $sql_register)) {
           header("Location: ./login.php?register");
         }
