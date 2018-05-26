@@ -1,3 +1,23 @@
+<?php
+  session_start();
+  include("db_login.php");
+  if(!(isset($_SESSION["user_id"]))) {
+    header("Location: ./login.php");
+  }
+  else if(isset($_GET["action"]) && isset($_POST["topic"]) && isset($_POST["text"]) && isset($_GET["cat"])) {
+    $topic = mysqli_real_escape_string($conn, $_POST["topic"]);
+    $text = mysqli_real_escape_string($conn, $_POST["text"]);
+    echo $topic;
+    $sql = "INSERT INTO topics (id, accepted, owner_id, category_id, published, date, content) VALUES (NULL, 0, ".$_SESSION["user_id"].", ".$_GET["cat"].", 0, '".date("Y-m-d")."', '".$_POST["topic"]."');";
+    if(mysqli_query($conn, $sql)) {
+      $last_id = mysqli_insert_id($conn);
+      $sql = "INSERT INTO posts (id, author, date, topic_id, type, content, image_path) VALUES (NULL, ".$_SESSION["user_id"].", '".date("Y-m-d")."', $last_id, 'ASK', '".$_POST["text"]."', NULL);";
+      if(mysqli_query($conn, $sql)) {
+        header("Location: question.php?id=".mysqli_insert_id($conn)."");
+      }
+    }
+  }
+?>
 <!DOCTYPE html>
 <html lang="pl">
 
@@ -17,9 +37,9 @@
     </h1>
   </header>
   <div class="ask container">
-    <form action="ask.php" class="asking">
-      <input type="text" name="topic" placeholder="Topic" class="topic">
-      <textarea placeholder="Type question here..." class="message" name="message" rows="8" cols="80"></textarea>
+    <form action="<?php echo ("ask.php?action=send&cat=".$_GET["cat"]." "); ?>" method="POST" enctype=multipart/form-data class="asking">
+      <input type="text" name="topic" placeholder="Topic" required class="topic">
+      <textarea placeholder="Type question here..." required class="message" name="text" rows="8" cols="80"></textarea>
       <div class="buttons">
         <input type="file" name="file" value="Add image">
         <input type="submit" value="Ask!" class="send btn btn-success">
