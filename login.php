@@ -19,7 +19,13 @@
               $_SESSION["user_id"] = $row["id"];
               $_SESSION["user_rank"] = $row["rank"];
               $last = $row["date"];
-              mysqli_query($conn, "UPDATE users SET date='".date("Y-m-d")."', last='$last' WHERE id=".$_SESSION["user_id"].";");
+              if($last == "") {
+                $last = "NULL";
+              }
+              else {
+                $last = "'".$row["date"]."'";
+              }
+              mysqli_query($conn, "UPDATE users SET date='".date("Y-m-d H:i:s ")."', last=$last WHERE id=".$_SESSION["user_id"].";");
               header("Location: ./index.php");
             }
             else {

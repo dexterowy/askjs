@@ -8,10 +8,10 @@
     $topic = mysqli_real_escape_string($conn, $_POST["topic"]);
     $text = mysqli_real_escape_string($conn, $_POST["text"]);
     echo $topic;
-    $sql = "INSERT INTO topics (id, accepted, owner_id, category_id, published, date, content) VALUES (NULL, 0, ".$_SESSION["user_id"].", ".$_GET["cat"].", 0, '".date("Y-m-d")."', '".$_POST["topic"]."');";
+    $sql = "INSERT INTO topics (id, accepted, owner_id, category_id, published, date, content) VALUES (NULL, 0, ".$_SESSION["user_id"].", ".$_GET["cat"].", 0, '".date("Y-m-d H:i:s ")."', '".$_POST["topic"]."');";
     if(mysqli_query($conn, $sql)) {
       $last_id = mysqli_insert_id($conn);
-      $sql = "INSERT INTO posts (id, author, date, topic_id, type, content, image_path) VALUES (NULL, ".$_SESSION["user_id"].", '".date("Y-m-d")."', $last_id, 'ASK', '".$_POST["text"]."', NULL);";
+      $sql = "INSERT INTO posts (id, author, date, topic_id, type, content, image_path) VALUES (NULL, ".$_SESSION["user_id"].", '".date("Y-m-d H:i:s ")."', $last_id, 'ASK', '".$_POST["text"]."', NULL);";
       if(mysqli_query($conn, $sql)) {
         header("Location: question.php?id=".mysqli_insert_id($conn)."");
       }
