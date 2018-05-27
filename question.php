@@ -48,7 +48,7 @@
       <?php echo $topic; ?>
       </h2>
       <div class="question__buttons">
-        <a href="answer.php" class="btn btn-success">Answer</a>
+        <a href="answer.php?cat=<?php $_GET["id"] ?>" class="btn btn-success">Answer</a>
         <?php if($_SESSION["user_rank"] == "Admin")  {
           echo ("
           <a href='' class='btn btn-info'>Edit</a>

@@ -13,7 +13,7 @@
       $last_id = mysqli_insert_id($conn);
       $sql = "INSERT INTO posts (id, author, date, topic_id, type, content, image_path) VALUES (NULL, ".$_SESSION["user_id"].", '".date("Y-m-d H:i:s ")."', $last_id, 'ASK', '".$_POST["text"]."', NULL);";
       if(mysqli_query($conn, $sql)) {
-        header("Location: question.php?id=".mysqli_insert_id($conn)."");
+        header("Location: question.php?id=$last_id");
       }
     }
   }
