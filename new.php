@@ -30,25 +30,21 @@
       There are asks which are waiting for accept!
     </h2>
     <div class="new__list">
-      <div class="new__item">
-        <span class="new__topic">Sample topic</span>
-        in
-        <span class="new__cat">jQuery</span>
-        posted by
-        <span class="new__author">dexterowy</span>
-
-        <a href="#" class="btn btn-info">Show ask</a>
-      </div>
 
       <div class="new__item">
-        <span class="new__topic">Sample topic</span>
-        in
-        <span class="new__cat">jQuery</span>
-        posted by
-        <span class="new__author">dexterowy</span>
-
-        <a href="#" class="btn btn-info">Show ask</a>
+        <div class="new_info">
+          <span class="new__date">2018-05-28 /</span>
+          <span class="new__cat"> jQuery /</span>
+          <span class="new__author"> dexterowy</span>
+          <br>
+          <span class="new_topic">Sample topic</span>
+        </div>
+        <div class="new__button">
+          <a href="#" class="btn btn-info">Show</a>
+        </div>
       </div>
+
+
     </div>
   </div>
 

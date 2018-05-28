@@ -45,18 +45,22 @@ header {
   justify-content: center;
 }
 .new__item {
-  /* width: 100%; */
+  width: 100%;
   display: flex;
-  justify-content: center;
   align-items: center;
   padding: 20px;
   border-bottom: 1px solid rgb(68, 68, 68);
+  justify-content: space-between;
 
 }
 .new__item:last-child {
   border-bottom: none;
 }
-.new__topic, .new__cat, .new__author {
-  font-weight: bold;
-  margin: 0 5px;
+.new__content {
+
+}
+.new__date, .new__cat, .new__author {
+  font-weight: normal;
+  font-size: .6em;
+  color: rgb(89, 89, 89);
 }
