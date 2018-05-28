@@ -9,9 +9,7 @@
     session_destroy();
     header("Location: ./login.php");
   }
-  else if(isset($_GET["id"]) && isset($_GET["filter"])) {
 
-  }
  ?>
 
 <!DOCTYPE html>
@@ -72,24 +70,91 @@
   </nav>
   </header>
   <main>
-    <section class="box">
-      <a href="question.php" class="box__wrapper">
-        <div class="box__textside">
-          <div class="box__info">
-            <span class="box__date">19-05-2018</span>
-            <span class="box__author">Mateusz Szczotarz</span>
-            <span class="box__cat">NodeJS</span>
-          </div>
-          <h2 class="box__header">Konfiguracja Express.JS</h2>
-            <div class="box__content">
-              <span>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-              </span>
-            </div>
-        </div>
-        <img class="box_img" src="https://via.placeholder.com/300x300" alt="placeholder">
-      </a>
-    </section>
+    <?php
+    if(isset($_GET["cat"]) && isset($_GET["filter"])) {
+      if($_GET["filter"] == "all") {
+        $sql = "SELECT t.date, u.login, c.name, t.content as topic, p.content as post, p.image_path FROM topics t
+        INNER JOIN users u ON u.id=t.owner_id
+        LEFT JOIN categories c ON t.category_id=c.id
+        LEFT JOIN posts p ON p.topic_id=t.id
+        WHERE c.id = ".$_GET["cat"]." AND (t.published = 1 OR t.owner_id = ".$_SESSION["user_id"].") AND p.main = 1 ORDER BY t.date DESC;";
+      }
+      else if($_GET["filter"] == "myasks") {
+        $sql = "SELECT t.date, u.login, c.name, t.content as topic, p.content as post, p.image_path FROM topics t
+        INNER JOIN users u ON u.id=t.owner_id
+        LEFT JOIN categories c ON t.category_id=c.id
+        LEFT JOIN posts p ON p.topic_id=t.id
+        WHERE c.id = ".$_GET["cat"]." AND (t.owner_id = ".$_SESSION["user_id"].") AND p.main = 1 BY t.date DESC;";
+      }
+      else if($_GET["filter"] == "public") {
+        $sql = "SELECT t.date, u.login, c.name, t.content as topic, p.content as post, p.image_path FROM topics t
+        INNER JOIN users u ON u.id=t.owner_id
+        LEFT JOIN categories c ON t.category_id=c.id
+        LEFT JOIN posts p ON p.topic_id=t.id
+        WHERE c.id = ".$_GET["cat"]." AND t.published = 1 AND p.main = 1 BY t.date DESC;";
+      }
+
+      $result = mysqli_query($conn, $sql);
+        if(mysqli_num_rows($result)) {
+          while($row = mysqli_fetch_assoc($result)) {
+            echo ("
+            <!-- <section class='box'> -->
+              <a href='question.php' class='box box__wrapper'>
+                <div class='box__textside'>
+                  <div class='box__info'>
+                    <span class='box__date'>".$row["date"]."</span>
+                    <span class='box__author'>".$row["login"]."</span>
+                    <span class='box__cat'>".$row["name"]."</span>
+                  </div>
+                  <h2 class='box__header'>".$row["topic"]."</h2>
+                    <div class='box__content'>
+                      <span>
+                        ".$row["post"]."
+                      </span>
+                    </div>
+                </div>
+                <img class='box_img' src='".$row["image_path"]."'>
+              </a>
+            <!-- </section> -->
+            ");
+          }
+        }
+    }
+    else {
+      $sql = "SELECT t.date, u.login, c.name, t.content as topic, p.content as post, p.image_path FROM topics t
+      INNER JOIN users u ON u.id=t.owner_id
+      LEFT JOIN categories c ON t.category_id=c.id
+      LEFT JOIN posts p ON p.topic_id=t.id
+      WHERE t.published = 1 AND p.main = 1 BY t.date DESC;";
+      $result = mysqli_query($conn, $sql);
+      if(mysqli_num_rows($result) > 0) {
+        while($row = mysqli_fetch_assoc($result)) {
+          echo ("
+          <section class='box'>
+            <a href='question.php' class='box__wrapper'>
+              <div class='box__textside'>
+                <div class='box__info'>
+                  <span class='box__date'>".$row["date"]."</span>
+                  <span class='box__author'>".$row["login"]."</span>
+                  <span class='box__cat'>".$row["name"]."</span>
+                </div>
+                <h2 class='box__header'>".$row["topic"]."</h2>
+                  <div class='box__content'>
+                    <span>
+                      ".$row["post"]."
+                    </span>
+                  </div>
+              </div>
+              <img class='box_img' src='".$row["image_path"]."'>
+            </a>
+          </section>
+          ");
+        }
+      }
+    }
+
+     ?>
+
 
 
   </main>

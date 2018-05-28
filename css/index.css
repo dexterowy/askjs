@@ -32,19 +32,23 @@ header {
   font-size: 32px;
   font-weight: 700;
 }
+
 .logo__header:hover {
   color: rgb(0, 0, 0);
   text-decoration: none;
 }
+
 .panel {
   align-self: flex-end;
   padding: 20px;
   margin-right: 30px;
 }
+
 .logout:hover, .profile:hover {
   text-decoration: none;
   color: rgb(0, 0, 0);
 }
+
 .menu {
   display: flex;
   flex-direction: row;
@@ -98,6 +102,7 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 }
 
 .ask {
@@ -107,20 +112,23 @@ main {
 
 .box {
   width: 60%;
-  margin: 50px;
+  padding: 50px;
   display: flex;
+  border: 2px solid rgb(83, 82, 83);
+  border-radius: 5px;
 }
 
 .box__wrapper {
   display: flex;
   color: rgb(0, 0, 0);
   text-decoration: none;
-
 }
-.box__wrapper:hover{
+
+.box__wrapper:hover {
   color: rgb(0, 0, 0);
   text-decoration: none;
 }
+
 .box__textside {
   margin-right: 10px;
 }
@@ -144,12 +152,10 @@ main {
   align-items: center; */
 }
 
-.box__content {
+.box__content {}
 
-}
 .box_img {
   /* float: right; */
-
 }
 
 @media only screen and (max-width: 1000px) {

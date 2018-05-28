@@ -8,7 +8,6 @@
     $sql = "SELECT t.content, t.owner_id, m.users_id FROM topics AS t INNER JOIN cat_mang AS m ON m.categories_id = t.category_id WHERE (t.published = 1 OR t.owner_id = ".$_SESSION["user_id"]." OR m.users_id = ".$_SESSION["user_id"].") AND t.id = ".$_GET["cat"].";";
     $result = mysqli_query($conn, $sql);
     if(mysqli_num_rows($result) > 0) {
-              echo "test";
       while($row = mysqli_fetch_assoc($result)) {
         $topic = $row["content"];
         if($row["owner_id"] == $_SESSION["user_id"]) {
@@ -19,23 +18,19 @@
         }
       }
       if(isset($_GET["answer"]) && isset($_POST["message"])) {
-
         $cat = $_GET["answer"];
-        $sql = "INSERT INTO posts (id, author, date, topic_id, type, content, image_path) VALUES (NULL, ".$_SESSION["user_id"].", '".date("Y-m-d H:i:s ")."', $cat, '$type', '".$_POST["message"]."', NULL);";
+        $sql = "INSERT INTO posts (id, author, date, topic_id, type, content, image_path, main) VALUES (NULL, ".$_SESSION["user_id"].", '".date("Y-m-d H:i:s ")."', $cat, '$type', '".$_POST["message"]."', NULL, 0);";
         if(mysqli_query($conn, $sql)) {
           header("Location: question.php?id=$cat");
       }
       }
-      else {
-        //header("Location: ./index.php");
-      }
     }
     else {
-      //header("Location: ./index.php");
+      header("Location: ./index.php");
     }
   }
   else {
-    //header("Location: ./index.php");
+    header("Location: ./index.php");
   }
 ?>
 <!DOCTYPE html>
