@@ -9,6 +9,9 @@
     session_destroy();
     header("Location: ./login.php");
   }
+  else if(isset($_GET["id"]) && isset($_GET["filter"])) {
+
+  }
  ?>
 
 <!DOCTYPE html>
@@ -44,7 +47,11 @@
             echo ("
             <div class='menu__wrapper'>
               <a href='./index.php?cat=".$row["id"]."&filter=all' class='menu__main'>".$row["name"]."</a>
-              <div class='menu__sub'><a href='./index.php?cat=".$row["id"]."&filter=myasks' class='menu__myasks'>MyAsks</a><a href='./index.php?cat=".$row["id"]."&filter=public' class='menu__public'>Public</a><a href='./ask.php?cat=".$row["id"]."' class='menu__ask'>ask now!</a></div>
+              <div class='menu__sub'>
+              <a href='./index.php?cat=".$row["id"]."&filter=myasks' class='menu__myasks'>MyAsks</a>
+              <a href='./index.php?cat=".$row["id"]."&filter=public' class='menu__public'>Public</a>
+              <a href='./ask.php?cat=".$row["id"]."' class='menu__ask'>ask now!</a>
+              </div>
             </div>
             ");
           }
@@ -84,102 +91,6 @@
       </a>
     </section>
 
-    <section class="box">
-      <a href="question.php" class="box__wrapper">
-        <div class="box__textside">
-          <div class="box__info">
-            <span class="box__date">19-05-2018</span>
-            <span class="box__author">Mateusz Szczotarz</span>
-            <span class="box__cat">NodeJS</span>
-          </div>
-          <h2 class="box__header">Konfiguracja Express.JS</h2>
-            <div class="box__content">
-              <span>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-              </span>
-            </div>
-        </div>
-        <img class="box_img" src="https://via.placeholder.com/300x300" alt="placeholder">
-      </a>
-    </section>
-
-    <section class="box">
-      <a href="question.php" class="box__wrapper">
-        <div class="box__textside">
-          <div class="box__info">
-            <span class="box__date">19-05-2018</span>
-            <span class="box__author">Mateusz Szczotarz</span>
-            <span class="box__cat">NodeJS</span>
-          </div>
-          <h2 class="box__header">Konfiguracja Express.JS</h2>
-            <div class="box__content">
-              <span>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-              </span>
-            </div>
-        </div>
-        <img class="box_img" src="https://via.placeholder.com/300x300" alt="placeholder">
-      </a>
-    </section>
-
-    <section class="box">
-      <a href="question.php" class="box__wrapper">
-        <div class="box__textside">
-          <div class="box__info">
-            <span class="box__date">19-05-2018</span>
-            <span class="box__author">Mateusz Szczotarz</span>
-            <span class="box__cat">NodeJS</span>
-          </div>
-          <h2 class="box__header">Konfiguracja Express.JS</h2>
-            <div class="box__content">
-              <span>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-              </span>
-            </div>
-        </div>
-        <img class="box_img" src="https://via.placeholder.com/300x300" alt="placeholder">
-      </a>
-    </section>
-
-    <section class="box">
-      <a href="question.php" class="box__wrapper">
-        <div class="box__textside">
-          <div class="box__info">
-            <span class="box__date">19-05-2018</span>
-            <span class="box__author">Mateusz Szczotarz</span>
-            <span class="box__cat">NodeJS</span>
-          </div>
-          <h2 class="box__header">Konfiguracja Express.JS</h2>
-            <div class="box__content">
-              <span>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-              </span>
-            </div>
-        </div>
-        <img class="box_img" src="https://via.placeholder.com/300x300" alt="placeholder">
-      </a>
-    </section>
-
-
-    <!--
-    <section class="box">
-      <a href="question.php" class="box__wrapper">
-        <div class="box__textside">
-          <div class="box__info">
-            <span class="box__date">19-05-2018</span>
-            <span class="box__author">Mateusz Szczotarz</span>
-            <span class="box__cat">NodeJS</span>
-          </div>
-          <h2 class="box__header">Konfiguracja Express.JS</h2>
-
-            <div class="box__content">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </div>
-        </div>
-        <div class="box__imgWrapper"><img src="https://via.placeholder.com/300x300" alt="placeholder" class="box__image"></div>
-      </a>
-    </section>
-   -->
 
   </main>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

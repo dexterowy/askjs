@@ -5,7 +5,7 @@
     header("Location: ./login.php");
   }
   else if(isset($_GET["id"])) {
-    $sql = "SELECT t.content FROM topics AS t INNER JOIN cat_mang AS m ON m.categories_id = t.category_id WHERE (t.published = 1 OR t.owner_id = ".$_SESSION["user_id"]." OR m.users_id = ".$_SESSION["user_id"].") AND t.id = ".$_GET["id"].";";
+    $sql = "SELECT t.content, t.accepted, m.users_id, t.published FROM topics AS t INNER JOIN cat_mang AS m ON m.categories_id = t.category_id WHERE (t.published = 1 OR t.owner_id = ".$_SESSION["user_id"]." OR m.users_id = ".$_SESSION["user_id"].") AND t.id = ".$_GET["id"].";";
     $result = mysqli_query($conn, $sql);
 
     if(mysqli_num_rows($result) > 0) {
@@ -13,6 +13,29 @@
 
       while($row = mysqli_fetch_assoc($result)) {
         $topic = $row["content"];
+        $state = $row["accepted"];
+        $admin_id = $row["users_id"];
+        $pub = $row["published"];
+      }
+      if(isset($_GET["action"]) && $_SESSION["user_rank"] == "Admin") {
+        if($admin_id == $_SESSION["user_id"] && $_GET["action"] == "accept") {
+          $sql = "UPDATE topics SET accepted = 1 WHERE id = ".$_GET["id"].";";
+          if(mysqli_query($conn, $sql)) {
+            header("Location: question.php?id=".$_GET["id"]);
+          }
+        }
+        else if($admin_id == $_SESSION["user_id"] && $_GET["action"] == "delete") {
+          $sql = "DELETE FROM topics WHERE id = ".$_GET["id"].";";
+          if(mysqli_query($conn, $sql)) {
+            header("Location: index.php?deleted=".$_GET["id"]);
+          }
+        }
+        else if($admin_id == $_SESSION["user_id"] && $_GET["action"] == "publish") {
+          $sql = "UPDATE topics SET published = 1 WHERE id = ".$_GET["id"].";";
+          if(mysqli_query($conn, $sql)) {
+            header("Location: question.php?id=".$_GET["id"]);
+          }
+        }
       }
     }
     else {
@@ -48,12 +71,32 @@
       <?php echo $topic; ?>
       </h2>
       <div class="question__buttons">
-        <a href="answer.php?cat=<?php echo $_GET["id"]; ?>" class="btn btn-success">Answer</a>
+
         <?php if($_SESSION["user_rank"] == "Admin")  {
+          if($state == "0") {
+            echo ("
+            <a href='question.php?id=".$_GET["id"]."&action=accept' class='btn btn-success'>Accept</a>
+            ");
+          }
+          else {
+            echo ("
+            <a href='answer.php?cat=".$_GET["id"]."' class='btn btn-success'>Answer</a>
+            ");
+          }
+          if($pub == "0") {
+            echo ("
+            <a href='question.php?id=".$_GET["id"]."&action=publish' class='btn btn-primary'>Publish</a>
+            ");
+          }
           echo ("
-          <a href='' class='btn btn-info'>Edit</a>
-          <a href='public.php' class='btn btn-primary'>Publish</a>
-          <a href='delete.php' class='btn btn-danger'>Delete</a>
+          <a href='question.php?id=".$_GET["id"]."&action=edit' class='btn btn-info'>Edit</a>
+
+          <a href='question.php?id=".$_GET["id"]."&action=delete' class='btn btn-danger'>Delete</a>
+          ");
+        }
+        else {
+          echo ("
+          <a href='answer.php?cat=".$_GET["id"]."' class='btn btn-success'>Answer</a>
           ");
         }?>
       </div>
