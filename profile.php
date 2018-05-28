@@ -77,7 +77,7 @@
           <a href='./upload.php' class='btn btn-primary'>Upload avatar</a>
           <a href='./subscribe.php' class='btn btn-primary'>Subscribe categories</a>
           <a href='./edit.php' class='btn btn-primary'>Edit categories</a>
-          <a href='./index.php?new' class='btn btn-success'>New questions</a>
+          <a href='./new.php' class='btn btn-success'>New questions</a>
           <a href='./index.php?accepted' class='btn btn-info'>Accepted</a>
           ");
         }

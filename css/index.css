@@ -116,6 +116,7 @@ main {
   display: flex;
   border: 2px solid rgb(83, 82, 83);
   border-radius: 5px;
+  margin: 20px 0;
 }
 
 .box__wrapper {

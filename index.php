@@ -84,14 +84,14 @@
         INNER JOIN users u ON u.id=t.owner_id
         LEFT JOIN categories c ON t.category_id=c.id
         LEFT JOIN posts p ON p.topic_id=t.id
-        WHERE c.id = ".$_GET["cat"]." AND (t.owner_id = ".$_SESSION["user_id"].") AND p.main = 1 BY t.date DESC;";
+        WHERE c.id = ".$_GET["cat"]." AND (t.owner_id = ".$_SESSION["user_id"].") AND p.main = 1 ORDER BY t.date DESC;";
       }
       else if($_GET["filter"] == "public") {
         $sql = "SELECT t.date, u.login, c.name, t.content as topic, p.content as post, p.image_path FROM topics t
         INNER JOIN users u ON u.id=t.owner_id
         LEFT JOIN categories c ON t.category_id=c.id
         LEFT JOIN posts p ON p.topic_id=t.id
-        WHERE c.id = ".$_GET["cat"]." AND t.published = 1 AND p.main = 1 BY t.date DESC;";
+        WHERE c.id = ".$_GET["cat"]." AND t.published = 1 AND p.main = 1 ORDER BY t.date DESC;";
       }
 
       $result = mysqli_query($conn, $sql);
@@ -125,7 +125,7 @@
       INNER JOIN users u ON u.id=t.owner_id
       LEFT JOIN categories c ON t.category_id=c.id
       LEFT JOIN posts p ON p.topic_id=t.id
-      WHERE t.published = 1 AND p.main = 1 BY t.date DESC;";
+      WHERE t.published = 1 AND p.main = 1 ORDER BY t.date DESC;";
       $result = mysqli_query($conn, $sql);
       if(mysqli_num_rows($result) > 0) {
         while($row = mysqli_fetch_assoc($result)) {
