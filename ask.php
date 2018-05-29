@@ -7,8 +7,10 @@
   else if(isset($_GET["action"]) && isset($_POST["topic"]) && isset($_POST["text"]) && isset($_GET["cat"])) {
     $topic = mysqli_real_escape_string($conn, $_POST["topic"]);
     $text = mysqli_real_escape_string($conn, $_POST["text"]);
+    $cat = mysqli_real_escape_string($conn, $_POST["cat"]);
+
     echo $topic;
-    $sql = "INSERT INTO topics (id, accepted, owner_id, category_id, published, date, content) VALUES (NULL, 0, ".$_SESSION["user_id"].", ".$_GET["cat"].", 0, '".date("Y-m-d H:i:s ")."', '".$_POST["topic"]."');";
+    $sql = "INSERT INTO topics (id, accepted, owner_id, category_id, published, date, content) VALUES (NULL, 0, ".$_SESSION["user_id"].", ".$_GET["cat"].", 0, '".date("Y-m-d H:i:s ")."', '$topic');";
     if(mysqli_query($conn, $sql)) {
       $last_id = mysqli_insert_id($conn);
       $sql = "INSERT INTO posts (id, author, date, topic_id, type, content, image_path, main) VALUES (NULL, ".$_SESSION["user_id"].", '".date("Y-m-d H:i:s ")."', $last_id, 'ASK', '".$_POST["text"]."', NULL, 1);";

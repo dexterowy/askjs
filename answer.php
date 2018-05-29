@@ -18,8 +18,9 @@
         }
       }
       if(isset($_GET["answer"]) && isset($_POST["message"])) {
-        $cat = $_GET["answer"];
-        $sql = "INSERT INTO posts (id, author, date, topic_id, type, content, image_path, main) VALUES (NULL, ".$_SESSION["user_id"].", '".date("Y-m-d H:i:s ")."', $cat, '$type', '".$_POST["message"]."', NULL, 0);";
+        $cat = mysqli_real_escape_string($conn, $_GET["answer"]);
+        $msg = mysqli_real_escape_string($conn, $_POST["message"]);
+        $sql = "INSERT INTO posts (id, author, date, topic_id, type, content, image_path, main) VALUES (NULL, ".$_SESSION["user_id"].", '".date("Y-m-d H:i:s ")."', $cat, '$type', '$msg', NULL, 0);";
         if(mysqli_query($conn, $sql)) {
           header("Location: question.php?id=$cat");
       }
