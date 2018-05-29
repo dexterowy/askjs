@@ -15,7 +15,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-  <link rel="stylesheet" href="css/new.css">
+  <link rel="stylesheet" href="css/accepted.css">
   <title>AskJS.com</title>
 </head>
 
@@ -25,31 +25,31 @@
       <a href="./index.php" class="logo__header">AskJS.com</a>
     </h1>
   </header>
-  <div class="new">
-    <h2 class="new__info">
-      There are asks which are waiting for accept!
+  <div class="accepted">
+    <h2 class="accepted__info">
+      There are asks which you have accepted!
     </h2>
-    <div class="new__list">
+    <div class="accepted__list">
       <?php
         $sql ="SELECT t.date, t.id, u.login, c.name, t.content FROM topics t
         INNER JOIN users u ON t.owner_id = u.id
         LEFT JOIN categories c ON t.category_id = c.id
         LEFT JOIN cat_mang m ON m.categories_id = t.category_id
-        WHERE t.accepted = 0 AND m.users_id = ".$_SESSION["user_id"].";";
+        WHERE t.accepted = 1 AND m.users_id = ".$_SESSION["user_id"].";";
 
         $result = mysqli_query($conn, $sql);
         if(mysqli_num_rows($result)) {
           while($row = mysqli_fetch_assoc($result)) {
             echo ("
-            <div class='new__item'>
-              <div class='new_info'>
-                <span class='new__date'>".$row["date"]." /</span>
-                <span class='new__cat'> ".$row["name"]." /</span>
-                <span class='new__author'> ".$row["login"]."</span>
+            <div class='accepted__item'>
+              <div class='accepted_info'>
+                <span class='accepted__date'>".$row["date"]." /</span>
+                <span class='accepted__cat'> ".$row["name"]." /</span>
+                <span class='accepted__author'> ".$row["login"]."</span>
                 <br>
-                <span class='new_topic'>".$row["content"]."</span>
+                <span class='accepted_topic'>".$row["content"]."</span>
               </div>
-              <div class='new__button'>
+              <div class='accepted__button'>
                 <a href='question.php?id=".$row["id"]."' class='btn btn-info'>Show</a>
               </div>
             </div>

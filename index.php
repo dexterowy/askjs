@@ -73,21 +73,21 @@
     <?php
     if(isset($_GET["cat"]) && isset($_GET["filter"])) {
       if($_GET["filter"] == "all") {
-        $sql = "SELECT t.date, u.login, c.name, t.content as topic, p.content as post, p.image_path FROM topics t
+        $sql = "SELECT t.id, t.date, u.login, c.name, t.content as topic, p.content as post, p.image_path FROM topics t
         INNER JOIN users u ON u.id=t.owner_id
         LEFT JOIN categories c ON t.category_id=c.id
         LEFT JOIN posts p ON p.topic_id=t.id
         WHERE c.id = ".$_GET["cat"]." AND (t.published = 1 OR t.owner_id = ".$_SESSION["user_id"].") AND p.main = 1 ORDER BY t.date DESC;";
       }
       else if($_GET["filter"] == "myasks") {
-        $sql = "SELECT t.date, u.login, c.name, t.content as topic, p.content as post, p.image_path FROM topics t
+        $sql = "SELECT t.id, t.date, u.login, c.name, t.content as topic, p.content as post, p.image_path FROM topics t
         INNER JOIN users u ON u.id=t.owner_id
         LEFT JOIN categories c ON t.category_id=c.id
         LEFT JOIN posts p ON p.topic_id=t.id
         WHERE c.id = ".$_GET["cat"]." AND (t.owner_id = ".$_SESSION["user_id"].") AND p.main = 1 ORDER BY t.date DESC;";
       }
       else if($_GET["filter"] == "public") {
-        $sql = "SELECT t.date, u.login, c.name, t.content as topic, p.content as post, p.image_path FROM topics t
+        $sql = "SELECT t.id, t.date, u.login, c.name, t.content as topic, p.content as post, p.image_path FROM topics t
         INNER JOIN users u ON u.id=t.owner_id
         LEFT JOIN categories c ON t.category_id=c.id
         LEFT JOIN posts p ON p.topic_id=t.id
@@ -99,7 +99,7 @@
           while($row = mysqli_fetch_assoc($result)) {
             echo ("
             <!-- <section class='box'> -->
-              <a href='question.php' class='box box__wrapper'>
+              <a href='question.php?id=".$row["id"]."' class='box box__wrapper'>
                 <div class='box__textside'>
                   <div class='box__info'>
                     <span class='box__date'>".$row["date"]."</span>
@@ -121,7 +121,7 @@
         }
     }
     else {
-      $sql = "SELECT t.date, u.login, c.name, t.content as topic, p.content as post, p.image_path FROM topics t
+      $sql = "SELECT t.id, t.date, u.login, c.name, t.content as topic, p.content as post, p.image_path FROM topics t
       INNER JOIN users u ON u.id=t.owner_id
       LEFT JOIN categories c ON t.category_id=c.id
       LEFT JOIN posts p ON p.topic_id=t.id
@@ -131,7 +131,7 @@
         while($row = mysqli_fetch_assoc($result)) {
           echo ("
           <section class='box'>
-            <a href='question.php' class='box__wrapper'>
+            <a href='question.php?id=".$row["id"]."' class='box__wrapper'>
               <div class='box__textside'>
                 <div class='box__info'>
                   <span class='box__date'>".$row["date"]."</span>

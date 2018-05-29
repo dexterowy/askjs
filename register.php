@@ -61,8 +61,8 @@ else {
     <div class="register__panel">
       <h1 class="register__header">Register</h1>
       <form action="./register.php" method="post" class="register__form">
-        <input type="text" placeholder="Name" name="name" class="register__input">
-        <input type="text" placeholder="Surname" name="surname" class="register__input">
+        <input type="text" required placeholder="Name" name="name" class="register__input">
+        <input type="text" required placeholder="Surname" name="surname" class="register__input">
         <?php if(isset($_GET["fail"])) {
           if($_GET["fail"] == "email"){
             echo (
@@ -70,7 +70,7 @@ else {
             );
           }
         } ?>
-        <input type="text" placeholder="Email" name="email" class="register__input">
+        <input type="text" required placeholder="Email" name="email" class="register__input">
         <?php if(isset($_GET["fail"])) {
           if($_GET["fail"] == "login"){
             echo (
@@ -78,8 +78,8 @@ else {
             );
           }
         } ?>
-        <input type="text" placeholder="Login" name="login" class="register__input">
-        <input type="password" placeholder="Password" name="pass" class="register__input">
+        <input type="text" required placeholder="Login" name="login" class="register__input">
+        <input type="password" required placeholder="Password" name="pass" class="register__input">
         <button type="submit" class="register__btn btn btn-success">Register</button>
       </form>
     </div>

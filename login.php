@@ -67,8 +67,8 @@
 
     <div class="login__panel">
       <h1 class="login__header">Login</h1>
-      <form action="login.php" method="post" class="login__form">
-        <input type="text" placeholder="Login" name="login" class="login__input">
+      <form action="login.php" method="post" required class="login__form">
+        <input type="text" placeholder="Login" required name="login" class="login__input">
         <input type="password" placeholder="Password" name="pass" class="login__input">
         <button type="submit" class="login__btn btn btn-success">Login</button>
         <a href="./register.php" class="register__btn btn btn-danger">Register</a>
