@@ -83,7 +83,7 @@ header {
 .menu__myasks, .menu__public, .menu__main, .menu__ask {
   color: rgb(0, 0, 0);
   text-decoration: none;
-  font-size: 1.2em;
+  font-size: 1em;
   line-height: 2em;
   width: 100%;
   text-align: center;

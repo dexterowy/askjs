@@ -94,6 +94,19 @@
         <table class="table">
           <?php
           if($rank == "Admin") {
+            $sql = "select c.name,
+            count(if(t.accepted=1,1,null)) as accepted,
+            count(if(t.accepted=0,1,null)) as new,
+            count(if(t.published=1,1,null)) as published,
+            m.users_id as admin,
+            count(if(p.type='ANSWER',1,null)) as answers
+            from categories c
+            inner join topics t on c.id=t.category_id
+            left join cat_mang m on c.id=m.categories_id
+            left join posts p on t.id=p.topic_id
+            where m.users_id = ".$_SESSION["user_id"]."
+            group by c.name, m.users_id;";
+
             echo ("
             <thead>
               <tr>
@@ -101,59 +114,66 @@
                 <th scope='col'>New</th>
                 <th scope='col'>Accepted</th>
                 <th scope='col'>Published</th>
+                <th scope='col'>Answers</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <th scope='row'>NodeJS</th>
-                <td>154</td>
-                <td>54</td>
-                <td>54</td>
+            <tbody>");
 
-              </tr>
-              <tr>
-                <th scope='row'>React</th>
-                <td>12</td>
-                <td>11</td>
-                <td>11</td>
+            $result = mysqli_query($conn, $sql);
+            if(mysqli_num_rows($result)) {
+              while($row = mysqli_fetch_assoc($result)) {
+                echo("
+                <tr>
+                  <th scope='row'>".$row["name"]."</th>
+                  <td>".$row["new"]."</td>
+                  <td>".$row["accepted"]."</td>
+                  <td>".$row["published"]."</td>
+                  <td>".$row["answers"]."</td>
+                </tr>
+                ");
+              }
+            }
 
-              </tr>
-              <tr>
-                <th scope='row'>jQuery</th>
-                <td>12468</td>
-                <td>10468</td>
-                <td>10468</td>
-              </tr>
+              echo("
             </tbody>
             ");
           }
           else if( $rank == "User") {
+            $sql = "select c.name,
+            count(if(t.accepted=1,1,null)) as accepted,
+            count(if(t.published=1,1,null)) as published,
+            count(t.id) as questions
+            from categories c
+            inner join topics t on c.id=t.category_id
+            where t.owner_id = ".$_SESSION["user_id"]."
+            group by c.name;";
+
             echo ("
             <thead>
               <tr>
                 <th scope='col'>Category</th>
                 <th scope='col'>Questions</th>
                 <th scope='col'>Accepted</th>
+                <th scope='col'>Published</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <th scope='row'>NodeJS</th>
-                <td>154</td>
-                <td>54</td>
+            <tbody>");
 
-              </tr>
-              <tr>
-                <th scope='row'>React</th>
-                <td>12</td>
-                <td>11</td>
+            $result = mysqli_query($conn, $sql);
+            if(mysqli_num_rows($result)) {
+              while($row = mysqli_fetch_assoc($result)) {
+                echo("
+                <tr>
+                  <th scope='row'>".$row["name"]."</th>
+                  <td>".$row["questions"]."</td>
+                  <td>".$row["accepted"]."</td>
+                  <td>".$row["published"]."</td>
+                </tr>
+                ");
+              }
+            }
 
-              </tr>
-              <tr>
-                <th scope='row'>jQuery</th>
-                <td>12468</td>
-                <td>10468</td>
-              </tr>
+              echo("
             </tbody>
             ");
           }

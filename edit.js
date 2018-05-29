@@ -16,6 +16,7 @@
     const span = document.createElement('span');
     span.classList = "edit__cat";
     const input = document.createElement('input');
+    input.required = true;
     span.appendChild(input);
     const buttons = document.createElement('div');
     buttons.classList = "edit__itemBtn"
@@ -23,15 +24,11 @@
     editBtn.classList = "edit btn btn-primary";
     editBtn.addEventListener('click', edit);
     editBtn.innerHTML = "Edit"
-    const delBtn = document.createElement('button');
-    delBtn.classList = "del btn btn-danger";
-    delBtn.innerHTML = "Delete with all posts";
     const saveBtn = document.createElement('button');
     saveBtn.classList = "save btn btn-success";
     saveBtn.innerHTML = "Save";
     saveBtn.addEventListener('click', save);
     buttons.appendChild(editBtn);
-    buttons.appendChild(delBtn);
     buttons.appendChild(saveBtn);
     item.appendChild(span);
     item.appendChild(buttons);
@@ -71,7 +68,7 @@ function save(e) {
   this.parentNode.parentNode.children[0].innerHTML = cat;
   this.parentNode.children[0].addEventListener('click', edit);
   this.parentNode.removeChild(this);
-  this.parentNode.children[1].style.display = "block";
+  // this.parentNode.children[1].style.display = "block";
 }
 
 function del (e) {
