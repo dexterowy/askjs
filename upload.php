@@ -16,7 +16,6 @@
     }
     if(isset($_FILES["img"])) {
       $img = $_FILES["img"];
-      //print_r($img);
       $name = explode(".", $img["name"]);
       $type = strtolower(end($name));
       $allowed = array("jpg", "jpeg", "png");
@@ -28,9 +27,7 @@
             move_uploaded_file($img["tmp_name"], $path);
             $sqlPath = mysqli_real_escape_string($conn, $path);
             $sql = "UPDATE users SET avt_path = '$sqlPath' WHERE id = ".$_SESSION["user_id"].";";
-            echo $sql;
             mysqli_query($conn, $sql);
-             echo $path;
             header("Location: upload.php?success");
           }
         }

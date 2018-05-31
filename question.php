@@ -32,7 +32,6 @@
                 $email = $row["email"];
               }
             }
-            echo $email;
             $mail = new PHPMailer(true);                              // Passing `true` enables exceptions
             try {
                 //Server settings

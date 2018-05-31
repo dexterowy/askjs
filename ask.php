@@ -15,7 +15,6 @@
     $cat = mysqli_real_escape_string($conn, $_GET["cat"]);
     if(isset($_FILES["img"]) && !empty($_FILES["img"]["name"])) {
       $img = $_FILES["img"];
-      print_r($img);
       $name = explode(".", $img["name"]);
       $type = strtolower(end($name));
       $allowed = array("jpg", "jpeg", "png");
@@ -26,7 +25,6 @@
             $path = "uploads/posts/".$newName;
             move_uploaded_file($img["tmp_name"], $path);
             $sqlPath = mysqli_real_escape_string($conn, $path);
-            echo $path;
             $sqlPath = "'".$sqlPath."'";
           }
         }
@@ -40,7 +38,6 @@
     if(mysqli_query($conn, $sql)) {
       $last_id = mysqli_insert_id($conn);
       $sql = "INSERT INTO posts (id, author, date, topic_id, type, content, image_path, main) VALUES (NULL, ".$_SESSION["user_id"].", '".date("Y-m-d H:i:s ")."', $last_id, 'ASK', '".$_POST["text"]."', $sqlPath , 1);";
-      echo $sql;
       if(mysqli_query($conn, $sql)) {
         $sql = "SELECT email FROM users u INNER JOIN cat_mang m ON u.id = m.users_id WHERE m.categories_id = ".$_GET["cat"].";";
         $result = mysqli_query($conn, $sql);
@@ -49,7 +46,6 @@
             $email = $row["email"];
           }
         }
-        echo $email;
         $mail = new PHPMailer(true);                              // Passing `true` enables exceptions
         try {
             //Server settings

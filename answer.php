@@ -28,7 +28,6 @@
         $msg = mysqli_real_escape_string($conn, $_POST["message"]);
         if(isset($_FILES["img"]) && !empty($_FILES["img"]["name"])) {
           $img = $_FILES["img"];
-          print_r($img);
           $name = explode(".", $img["name"]);
           $imgType = strtolower(end($name));
           $allowed = array("jpg", "jpeg", "png");
@@ -39,7 +38,6 @@
                 $path = "uploads/posts/".$newName;
                 move_uploaded_file($img["tmp_name"], $path);
                 $sqlPath = mysqli_real_escape_string($conn, $path);
-                echo $path;
                 $sqlPath = "'".$sqlPath."'";
               }
             }
@@ -61,14 +59,12 @@
             LEFT JOIN topics t ON t.category_id = m.categories_id
             WHERE t.id = ".$_GET["cat"].";";
           }
-          echo $sql;
           $result2 = mysqli_query($conn, $sql);
           if(mysqli_num_rows($result2)) {
             while($row = mysqli_fetch_assoc($result2)) {
               $email = $row["email"];
             }
           }
-          echo $email;
           $mail = new PHPMailer(true);                              // Passing `true` enables exceptions
           try {
               //Server settings
