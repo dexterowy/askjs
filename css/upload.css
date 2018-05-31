@@ -36,3 +36,7 @@ body {
   color: rgb(0, 0, 0);
   text-decoration: none;
 }
+.upload__img {
+  max-width: 300px;
+  max-height: 300px;
+}

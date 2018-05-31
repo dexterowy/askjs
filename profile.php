@@ -27,7 +27,6 @@
           if($date == "") {
             $date = "never";
           }
-          echo $row["avt_path"];
           if(!$row["avt_path"]) {
             $avt_path = "https://via.placeholder.com/300x300";
           }

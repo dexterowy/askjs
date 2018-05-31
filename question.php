@@ -1,6 +1,10 @@
 <?php
   session_start();
   include("db_login.php");
+  require ('PHPMailer/src/PHPMailer.php');
+  require ('PHPMailer/src/SMTP.php');
+  require ('PHPMailer/src/Exception.php');
+  use PHPMailer\PHPMailer\PHPMailer;
   if(!(isset($_SESSION["user_id"]))) {
     header("Location: ./login.php");
   }
@@ -21,6 +25,49 @@
         if($admin_id == $_SESSION["user_id"] && $_GET["action"] == "accept") {
           $sql = "UPDATE topics SET accepted = 1 WHERE id = ".$_GET["id"].";";
           if(mysqli_query($conn, $sql)) {
+            $sql = "SELECT email FROM users u INNER JOIN topics t ON u.id = t.owner_id WHERE t.id = ".$_GET["id"].";";
+            $result = mysqli_query($conn, $sql);
+            if(mysqli_num_rows($result)) {
+              while($row = mysqli_fetch_assoc($result)) {
+                $email = $row["email"];
+              }
+            }
+            echo $email;
+            $mail = new PHPMailer(true);                              // Passing `true` enables exceptions
+            try {
+                //Server settings
+                //$mail->SMTPDebug = 2;                                 // Enable verbose debug output
+                $mail->isSMTP();                                      // Set mailer to use SMTP
+                $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
+                $mail->SMTPAuth = true;                               // Enable SMTP authentication
+                $mail->Username = 'askjs.com@gmail.com';                 // SMTP username
+                $mail->Password = 'zaq1@WSX';                           // SMTP password
+                $mail->SMTPSecure = 'ssl';                            // Enable TLS encryption, `ssl` also accepted
+                $mail->Port = 465;                                    // TCP port to connect to
+                //Recipients
+                $mail->setFrom('no-reply@askjs.com', 'AskJS.com');
+                $mail->addAddress($email);     // Add a recipient
+
+                //Content
+                $mail->isHTML(true);                                  // Set email format to HTML
+                $mail->Subject = 'YOUR POST HAS BEEN ACCEPTED!';
+                $mail->Body    = "
+                <h1>YOUR POST HAS BEEN ACCEPTED</h1>
+                date: ".date("Y-m-d H:i:s ")." <br />
+                Moderator of category which in you posted your ask, accepted your question. He will answer you as soon as it possible. <br />
+                Wait for email information or check for response on <a href='http://askjs.com'>AskJS.com</a>
+                ";
+                $mail->AltBody = "
+                <h1>YOUR POST HAS BEEN ACCEPTED</h1>
+                date: ".date("Y-m-d H:i:s ")." <br />
+                Moderator of category which in you posted your ask, accepted your question. He will answer you as soon as it possible. <br />
+                Wait for email information or check for response on <a href='http://askjs.com'>AskJS.com</a>
+                ";
+                $mail->send();
+                echo 'Message has been sent';
+            } catch (Exception $e) {
+                echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
+            }
             header("Location: question.php?id=".$_GET["id"]);
           }
         }
