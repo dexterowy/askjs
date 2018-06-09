@@ -1,3 +1,53 @@
+<?php
+  session_start();
+  include("db_login.php");
+  if(!isset($_SESSION["user_id"])) {
+    header("Location: ./login.php");
+  }
+  else if(isset($_POST["submit"])) {
+    $sql = "SELECT avt_path FROM users WHERE id = ".$_SESSION["user_id"].";";
+    $result = mysqli_query($conn, $sql);
+    if(mysqli_num_rows($result) > 0) {
+      while($row = mysqli_fetch_assoc($result)) {
+        if($row["avt_path"] != "") {
+          unlink($row["avt_path"]);
+        }
+      }
+    }
+    if(isset($_FILES["img"])) {
+      $img = $_FILES["img"];
+      $name = explode(".", $img["name"]);
+      $type = strtolower(end($name));
+      $allowed = array("jpg", "jpeg", "png");
+      if(in_array($type, $allowed)) {
+        if($img["error"] === 0) {
+          if($img["size"] < 5000000) {
+            $newName = uniqid('', true).".".$type;
+            $path = 'uploads/profiles/'.$newName;
+            move_uploaded_file($img["tmp_name"], $path);
+            $sqlPath = mysqli_real_escape_string($conn, $path);
+            $sql = "UPDATE users SET avt_path = '$sqlPath' WHERE id = ".$_SESSION["user_id"].";";
+            mysqli_query($conn, $sql);
+            header("Location: upload.php?success");
+          }
+        }
+      }
+    }
+  }
+  else {
+    $sql = "SELECT avt_path FROM users WHERE id = ".$_SESSION["user_id"].";";
+    $result = mysqli_query($conn, $sql);
+    $avt = "test";
+    if(mysqli_num_rows($result) > 0) {
+      while($row = mysqli_fetch_assoc($result)) {
+        $avt = $row["avt_path"];
+      }
+    }
+    if($avt == "") {
+      $avt = "https://via.placeholder.com/300x300";
+    }
+  }
+  ?>
 <!DOCTYPE html>
 <html lang="pl">
 
@@ -17,11 +67,16 @@
     </h1>
   </header>
   <div class="upload">
+    <?php if(isset($_GET["success"])) {
+      echo ("
+      <div class='alert alert-success'>New avatar uploaded!</div>
+      ");
+    } ?>
     <h2 class="upload__text">Change your profile photo!</h2>
-    <img id="img" src="https://via.placeholder.com/300x300" alt="" class="upload__img">
-    <form action="upload.php" class="upload__form">
+    <img id="img" src="<?php echo $avt; ?>" alt="" class="upload__img">
+    <form action="upload.php" class="upload__form" method="post" enctype="multipart/form-data">
       <input id="imgInput" type="file" name="img">
-      <button class="btn btn-success" type="submit" name="send" value="submit">Zapisz</button>
+      <button class="btn btn-success" type="submit" name="submit" value="submit">Zapisz</button>
       <a href="./profile.php" class="btn btn-primary">Back</a>
     </form>
   </div>

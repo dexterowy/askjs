@@ -9,15 +9,28 @@
     if(!empty($_POST["login"]) && !empty($_POST["pass"])) {
       $login = mysqli_real_escape_string($conn, $_POST["login"]);
       $passwd = mysqli_real_escape_string($conn, $_POST["pass"]);
-      echo ($login." ".$passwd);
 
-      $sql = "SELECT id FROM users where login='$login' and password='$passwd';";
+      $sql = "SELECT id, rank, password, date FROM users where login='$login';";
       $result = mysqli_query($conn, $sql);
       if (mysqli_num_rows($result) > 0) {
           // output data of each row
           while($row = mysqli_fetch_assoc($result)) {
-            $_SESSION["user_id"] = $row["id"];
-            header("Location: ./index.php");
+            if(password_verify($passwd, $row["password"]) == 1) {
+              $_SESSION["user_id"] = $row["id"];
+              $_SESSION["user_rank"] = $row["rank"];
+              $last = $row["date"];
+              if($last == "") {
+                $last = "NULL";
+              }
+              else {
+                $last = "'".$row["date"]."'";
+              }
+              mysqli_query($conn, "UPDATE users SET date='".date("Y-m-d H:i:s ")."', last=$last WHERE id=".$_SESSION["user_id"].";");
+              header("Location: ./index.php");
+            }
+            else {
+              header("Location: ./login.php?login=fail");
+            }
           }
 
       }
@@ -54,10 +67,10 @@
 
     <div class="login__panel">
       <h1 class="login__header">Login</h1>
-      <form action="login.php" method="post" class="login__form">
-        <input type="text" placeholder="Login" name="login" class="login__input">
+      <form action="login.php" method="post" required class="login__form">
+        <input type="text" placeholder="Login" required name="login" class="login__input">
         <input type="password" placeholder="Password" name="pass" class="login__input">
-        <button type="submit" href="./index.php" class="login__btn btn btn-success">Login</button>
+        <button type="submit" class="login__btn btn btn-success">Login</button>
         <a href="./register.php" class="register__btn btn btn-danger">Register</a>
       </form>
     </div>

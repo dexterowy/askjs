@@ -107,3 +107,11 @@ header {
   border-radius: 10px;
   padding: 15px;
 }
+.ask__content, .answer__content {
+  display: flex;
+  flex-direction: column;
+}
+.ask__img, .answer__img {
+  max-width: 400px;
+  max-height: 400px;
+}
