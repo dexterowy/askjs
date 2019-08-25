@@ -1,5 +1,5 @@
 # AskJs.com
-##This is my semestral project for high school. Website for asking questions about JavaScript.
+## This is my semestral project for high school. Website for asking questions about JavaScript.
 
 Design is ugly but it can be. The main target for that project is to create own cms with following functionalities:
 - sing in/up
